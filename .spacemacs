@@ -367,21 +367,13 @@ you should place your code here."
   ;; Keyboard combinations to delete charcters and words in insert mode
   (define-key evil-insert-state-map (kbd "C-,") 'backward-delete-char-untabify)
   (define-key evil-insert-state-map (kbd "C-.") 'delete-char)
-
+привет андрней о лвыоавывл ввллдд д дывдав а в
   ;; Rebind normal commands that don't respect input method
   (define-key evil-normal-state-map (kbd "r") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-replace)))
-  (define-key evil-normal-state-map (kbd "f") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char)))
-  (define-key evil-normal-state-map (kbd "t") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to)))
-  (define-key evil-normal-state-map (kbd "F") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-backward)))
-  (define-key evil-normal-state-map (kbd "T") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to-backward)))
-  ;; (define-key evil-operator-state-map (kbd "f") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char)))
-  ;; (define-key evil-operator-state-map (kbd "t") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to)))
-  (define-key evil-operator-state-map (kbd "F") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-backward)))
-  (define-key evil-operator-state-map (kbd "T") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to-backward)))
-  ;; (define-key evil-visual-state-map (kbd "f") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char)))
-  ;; (define-key evil-visual-state-map (kbd "t") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to)))
-  (define-key evil-visual-state-map (kbd "F") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-backward)))
-  (define-key evil-visual-state-map (kbd "T") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to-backward)))
+  (define-key evil-motion-state-map (kbd "f") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char)))
+  (define-key evil-motion-state-map (kbd "t") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to)))
+  (define-key evil-motion-state-map (kbd "F") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-backward)))
+  (define-key evil-motion-state-map (kbd "T") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to-backward)))
 )
 
 (defun khaoos-toggle-fill-column (colnum)
