@@ -368,6 +368,20 @@ you should place your code here."
   (define-key evil-insert-state-map (kbd "C-,") 'backward-delete-char-untabify)
   (define-key evil-insert-state-map (kbd "C-.") 'delete-char)
 
+  ;; Rebind normal commands that don't respect input method
+  (define-key evil-normal-state-map (kbd "r") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-replace)))
+  (define-key evil-normal-state-map (kbd "f") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char)))
+  (define-key evil-normal-state-map (kbd "t") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to)))
+  (define-key evil-normal-state-map (kbd "F") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-backward)))
+  (define-key evil-normal-state-map (kbd "T") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to-backward)))
+  ;; (define-key evil-operator-state-map (kbd "f") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char)))
+  ;; (define-key evil-operator-state-map (kbd "t") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to)))
+  (define-key evil-operator-state-map (kbd "F") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-backward)))
+  (define-key evil-operator-state-map (kbd "T") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to-backward)))
+  ;; (define-key evil-visual-state-map (kbd "f") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char)))
+  ;; (define-key evil-visual-state-map (kbd "t") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to)))
+  (define-key evil-visual-state-map (kbd "F") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-backward)))
+  (define-key evil-visual-state-map (kbd "T") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char-to-backward)))
 )
 
 (defun khaoos-toggle-fill-column (colnum)
@@ -468,6 +482,31 @@ Edited by khaoos to implement the ability of ignoring the input method"
                     (append unread-command-events (list evt)))))))))
 
 (advice-add 'evil-escape-pre-command-hook :override #'khaoos-evil-escape-pre-command-hook)
+
+(defun khaoos-evil-read-key-respect-input-method (evil-read-key-result)
+  "Gets the result of evil-read-key function and converts it according the current input method
+which at the moment could be a method of a family of quail input methods"
+  (if (and (characterp evil-read-key-result)
+           current-input-method
+           (equal input-method-function 'quail-input-method))
+    (let* ((translated-key-list (quail-lookup-key (char-to-string evil-read-key-result)))
+           (translated-key (if (equal (length translated-key-list) 1)
+                               (car translated-key-list)
+                               evil-read-key-result)))
+          translated-key)
+    evil-read-key-result))
+
+(advice-add 'evil-read-key :filter-return 'khaoos-evil-read-key-respect-input-method)
+
+(defun khaoos-run-evil-command-respect-input-method (evil-command)
+  "Runs interactively evil command evil-command which respects now the current input method"
+  ;; if we are in the mode which prohibits input method we do a trick
+  (if (and evil-input-method (not current-input-method))
+    (evil-without-input-method-hooks
+      (activate-input-method evil-input-method)
+      (call-interactively evil-command)
+      (inactivate-input-method))
+    (call-interactively evil-command)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
