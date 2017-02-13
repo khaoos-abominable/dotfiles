@@ -401,7 +401,9 @@ Doesn't work for complex input methods which use event loops."
   ;; The chances are high that we'll reuse it.
   ;; We may end up with several advices for different input methods if an user uses them.
   ;; It doesn't matter as the only one work at the moment.
-  (if input-method-function
+  ;; I saw a case when input-method-function was equal to 'list'! So there is addition check
+  ;; on current-input-method
+  (if (and current-input-method input-method-function)
       (advice-add input-method-function :before #'khaoos-capture-input-mode-raw-key)))
 
 (advice-add 'activate-input-method :after #'khaoos-activate-input-method)
