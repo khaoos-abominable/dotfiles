@@ -343,6 +343,7 @@ you should place your code here."
 
   ;; settings for evil-escape
   (setq-default
+    evil-escape-key-sequence "fj"
     evil-escape-unordered-key-sequence t
     khaoos-evil-escape-ignore-input-method t)
 
