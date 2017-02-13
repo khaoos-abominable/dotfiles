@@ -367,7 +367,7 @@ you should place your code here."
   ;; Keyboard combinations to delete charcters and words in insert mode
   (define-key evil-insert-state-map (kbd "C-,") 'backward-delete-char-untabify)
   (define-key evil-insert-state-map (kbd "C-.") 'delete-char)
-привет андрней о лвыоавывл ввллдд д дывдав а в
+
   ;; Rebind normal commands that don't respect input method
   (define-key evil-normal-state-map (kbd "r") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-replace)))
   (define-key evil-motion-state-map (kbd "f") (lambda () (interactive) (khaoos-run-evil-command-respect-input-method 'evil-find-char)))
