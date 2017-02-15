@@ -323,12 +323,16 @@ you should place your code here."
   (prefer-coding-system 'windows-1251)
   (prefer-coding-system 'utf-8)
 
+  ;; set files associations
+  (add-to-list 'auto-mode-alist '("svn-commit\\.tmp" . text-mode))
+
   ;; disable electric indent mode
   (electric-indent-mode -1)
 
   ;; settings for sql-mode
   ;; make underscore symbol act like a space character in sql-mode
-  (add-hook 'sql-mode-hook (lambda () (modify-syntax-entry ?_ "w")))
+  (eval-after-load 'sql-mode
+    (add-hook 'sql-mode-hook (lambda () (modify-syntax-entry ?_ "w"))))
   ;; key-binding for sending the whole line in the sql buffer
   (spacemacs/set-leader-keys-for-major-mode 'sql-mode "sl" 'sql-send-line-and-next)
   ;; key-binding for start new connection
@@ -349,7 +353,7 @@ you should place your code here."
 
   ;; set fill column for some modes
   (add-hook 'sql-mode-hook (lambda() (khaoos-toggle-fill-column 120)))
-  (add-hook 'text-mode-hook (lambda() (khaoos-toggle-fill-column 140)))
+  (add-hook 'text-mode-hook (lambda() (khaoos-toggle-fill-column 140 t)))
 
   ;; Keyboard combination to add missing functionality to repeat f,F,t,T commands in opposite way
   (define-key evil-normal-state-map (kbd "C-;") 'evil-repeat-find-char-reverse)
@@ -365,7 +369,7 @@ you should place your code here."
       (call-interactively 'spacemacs/evil-insert-line-above)
       (evil-previous-line)))
 
-  ;; Keyboard combinations to delete charcters and words in insert mode
+  ;; Keyboard combinations to delete charcters
   (define-key evil-insert-state-map (kbd "C-,") 'backward-delete-char-untabify)
   (define-key evil-insert-state-map (kbd "C-.") 'delete-char)
 
@@ -377,9 +381,10 @@ you should place your code here."
   (define-key evil-motion-state-map (kbd "T") 'khaoos-evil-find-char-to-backward)
 )
 
-(defun khaoos-toggle-fill-column (colnum)
+(defun khaoos-toggle-fill-column (colnum &rest auto-fill-on)
   (set-fill-column colnum)
-  (spacemacs/toggle-fill-column-indicator-on))
+  (spacemacs/toggle-fill-column-indicator-on)
+  (when auto-fill-on (spacemacs/toggle-auto-fill-mode-on)))
 
 (defun khaoos-sql-oracle-start ()
   (interactive)
