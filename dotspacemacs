@@ -498,39 +498,39 @@ which at the moment could be a method of a family of quail input methods"
   ;; if we are in the mode which prohibits input method we do a trick
   (if (and evil-input-method (not current-input-method))
       (evil-without-input-method-hooks
-       (activate-input-method evil-input-method)
-       (call-interactively evil-command)
-       (inactivate-input-method))
+        (activate-input-method evil-input-method)
+        (call-interactively evil-command)
+        (inactivate-input-method))
     (call-interactively evil-command)))
 
-(evil-define-operator khaoos-evil-replace ()
-  "Wrapper of evil-replace to make it respect input method"
-  (interactive)
-  (khaoos-run-evil-command-respect-input-method 'evil-replace))
+(with-eval-after-load "evil-macros"
+  (evil-define-operator khaoos-evil-replace ()
+    "Wrapper of evil-replace to make it respect input method"
+    (interactive)
+    (khaoos-run-evil-command-respect-input-method 'evil-replace))
 
-(evil-define-motion khaoos-evil-find-char ()
-  "Wrapper of evil-find-char to make it respect input method"
-  :type inclusive
-  (interactive)
-  (khaoos-run-evil-command-respect-input-method 'evil-find-char))
+  (evil-define-motion khaoos-evil-find-char ()
+    "Wrapper of evil-find-char to make it respect input method"
+    :type inclusive
+    (interactive)
+    (khaoos-run-evil-command-respect-input-method 'evil-find-char))
 
-(evil-define-motion khaoos-evil-find-char-to ()
-  "Wrapper of evil-find-char-to to make it respect input method"
-  :type inclusive
-  (interactive)
-  (khaoos-run-evil-command-respect-input-method 'evil-find-char-to))
+  (evil-define-motion khaoos-evil-find-char-to ()
+    "Wrapper of evil-find-char-to to make it respect input method"
+    :type inclusive
+    (interactive)
+    (khaoos-run-evil-command-respect-input-method 'evil-find-char-to))
 
-(evil-define-motion khaoos-evil-find-char-backward ()
-  "Wrapper of evil-find-char-backward to make it respect input method"
-  :type exclusive
-  (interactive)
-  (khaoos-run-evil-command-respect-input-method 'evil-find-char-backward))
+  (evil-define-motion khaoos-evil-find-char-backward ()
+    "Wrapper of evil-find-char-backward to make it respect input method"
+    :type exclusive
+    (interactive)
+    (khaoos-run-evil-command-respect-input-method 'evil-find-char-backward))
 
-(evil-define-motion khaoos-evil-find-char-to-backward ()
-  "Wrapper of evil-find-char-to-backward to make it respect input method"
-  :type exclusive
-  (interactive)
-  (khaoos-run-evil-command-respect-input-method 'evil-find-char-to-backward))
+  (evil-define-motion khaoos-evil-find-char-to-backward ()
+    (interactive)
+    (khaoos-run-evil-command-respect-input-method 'evil-find-char-to-backward))
+)
 
 
 (custom-set-variables
