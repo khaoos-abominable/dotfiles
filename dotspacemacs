@@ -504,7 +504,11 @@ which at the moment could be a method of a family of quail input methods"
   (if (and evil-input-method (not current-input-method))
       (evil-without-input-method-hooks
         (activate-input-method evil-input-method)
-        (call-interactively evil-command)
+        (condition-case err
+            (call-interactively evil-command)
+          (error
+            (inactivate-input-method)
+            (signal (car err) (cdr err))))
         (inactivate-input-method))
     (call-interactively evil-command)))
 
