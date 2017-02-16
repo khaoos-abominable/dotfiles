@@ -331,8 +331,7 @@ you should place your code here."
 
   ;; settings for sql-mode
   ;; make underscore symbol act like a space character in sql-mode
-  (eval-after-load 'sql-mode
-    (add-hook 'sql-mode-hook (lambda () (modify-syntax-entry ?_ "w"))))
+  (add-hook 'sql-mode-hook (lambda () (modify-syntax-entry ?_ "w" sql-mode-syntax-table)))
   ;; key-binding for sending the whole line in the sql buffer
   (spacemacs/set-leader-keys-for-major-mode 'sql-mode "sl" 'sql-send-line-and-next)
   ;; key-binding for start new connection
