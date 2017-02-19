@@ -378,6 +378,10 @@ you should place your code here."
   (define-key evil-motion-state-map (kbd "t") 'khaoos-evil-find-char-to)
   (define-key evil-motion-state-map (kbd "F") 'khaoos-evil-find-char-backward)
   (define-key evil-motion-state-map (kbd "T") 'khaoos-evil-find-char-to-backward)
+
+  ;; Keyboard combinations to insert or append just one character in normal mode
+  (define-key evil-normal-state-map (kbd "M-i") 'khaoos-insert-one-char)
+  (define-key evil-normal-state-map (kbd "M-a") 'khaoos-append-one-char)
 )
 
 (defun khaoos-toggle-fill-column (colnum &rest auto-fill-on)
@@ -538,6 +542,30 @@ which at the moment could be a method of a family of quail input methods"
   (evil-define-motion khaoos-evil-find-char-to-backward ()
     (interactive)
     (khaoos-run-evil-command-respect-input-method 'evil-find-char-to-backward))
+
+  (evil-define-operator khaoos--insert-one-char ()
+    "Switches to insert mode just to input one character"
+    (interactive)
+    (let ((a (read-char "Input a character to insert:" t)))
+      (insert-char a)))
+
+  (evil-define-operator khaoos-insert-one-char ()
+    "Switches to insert mode just to input one character"
+    (interactive)
+    (khaoos-run-evil-command-respect-input-method 'khaoos--insert-one-char))
+
+  (evil-define-operator khaoos--append-one-char ()
+    "Switches to insert mode just to append one character"
+    (interactive)
+    (let ((a (read-char "Input a character to append:" t)))
+      (unless (eolp) (forward-char))
+      (insert-char a)
+		  (unless (eolp) (backward-char))))
+
+  (evil-define-operator khaoos-append-one-char ()
+    "Switches to insert mode just to input one character"
+    (interactive)
+    (khaoos-run-evil-command-respect-input-method 'khaoos--append-one-char))
 )
 
 
