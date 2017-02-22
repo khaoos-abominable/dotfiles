@@ -356,17 +356,6 @@ you should place your code here."
 
   ;; Keyboard combination to add missing functionality to repeat f,F,t,T commands in opposite way
   (define-key evil-normal-state-map (kbd "C-;") 'evil-repeat-find-char-reverse)
-  ;; Keyboard combinations to insert blank lines and move to them in normal mode
-  (define-key evil-normal-state-map (kbd "RET")
-    (lambda ()
-      (interactive)
-      (call-interactively 'spacemacs/evil-insert-line-below)
-      (evil-next-line)))
-  (define-key evil-normal-state-map (kbd "<C-return>")
-    (lambda ()
-      (interactive)
-      (call-interactively 'spacemacs/evil-insert-line-above)
-      (evil-previous-line)))
 
   ;; Keyboard combinations to delete charcters
   (define-key evil-insert-state-map (kbd "C-,") 'backward-delete-char-untabify)
