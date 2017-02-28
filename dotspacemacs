@@ -297,7 +297,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
     ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
     ;; derivatives. If set to `relative', also turns on relative line numbers.
     ;; (default nil)
-    dotspacemacs-line-numbers t
+    dotspacemacs-line-numbers 'relative
     ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
     ;; several times cycle between the kill ring content. (default nil)
     dotspacemacs-enable-paste-transient-state t
