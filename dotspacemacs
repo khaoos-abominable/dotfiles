@@ -370,6 +370,10 @@ you should place your code here."
   ;; Keyboard combinations to insert or append just one character in normal mode
   (define-key evil-normal-state-map (kbd "M-i") 'khaoos-insert-one-char)
   (define-key evil-normal-state-map (kbd "M-a") 'khaoos-append-one-char)
+
+  ;; workaround for a bug when paste commands don't respect universal argument
+  (khaoos-autoindent-on-paste-workaround)
+
 )
 
 (defun khaoos-toggle-fill-column (colnum &rest auto-fill-on)
@@ -556,6 +560,28 @@ which at the moment could be a method of a family of quail input methods"
     (khaoos-run-evil-command-respect-input-method 'khaoos--append-one-char))
 )
 
+(defun khaoos-autoindent-on-paste-workaround ()
+  "bugfix by @chlodapp taken from https://github.com/syl20bnr/spacemacs/issues/4219
+paste command don't respect universal argument which should prohibit auto-indentation"
+  (spacemacs|advise-commands
+  "indent" (yank yank-pop evil-paste-before evil-paste-after) around
+  "If current mode is not one of spacemacs-indent-sensitive-modes
+  indent yanked text (with universal arg don't indent)."
+  (let ((prefix (ad-get-arg 0))) ;khaoos+
+    (ad-set-arg 0 (unless (equal '(4) prefix) prefix)) ;khaoos+
+    (evil-start-undo-step)
+    ad-do-it
+    (if (and (not (equal '(4) prefix)) ;khaoos* (if (and (not (equal '(4) (ad-get-arg 0)))
+            (not (member major-mode spacemacs-indent-sensitive-modes))
+            (or (derived-mode-p 'prog-mode)
+                (member major-mode spacemacs-indent-sensitive-modes)))
+        (let ((transient-mark-mode nil)
+              (save-undo buffer-undo-list))
+          (spacemacs/yank-advised-indent-function (region-beginning)
+                                                  (region-end))))
+    (evil-end-undo-step)
+    (ad-set-arg 0 prefix))) ; khaoos+
+)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
