@@ -367,8 +367,8 @@ you should place your code here."
   (define-key evil-motion-state-map (kbd "t") 'khaoos-evil-find-char-to)
   (define-key evil-motion-state-map (kbd "F") 'khaoos-evil-find-char-backward)
   (define-key evil-motion-state-map (kbd "T") 'khaoos-evil-find-char-to-backward)
-  (spacemacs/set-leader-keys "jj" 'khaoos-evil-avy-goto-char)
-  (spacemacs/set-leader-keys "jw" 'khaoos-evil-avy-goto-word-or-subword-1)
+  (spacemacs/set-leader-keys "jj" 'evil-khaoos-avy-goto-char)
+  (spacemacs/set-leader-keys "jw" 'evil-khaoos-avy-goto-word-or-subword-1)
 
   ;; Keyboard combinations to insert or append just one character in normal mode
   (define-key evil-normal-state-map (kbd "M-i") 'khaoos-insert-one-char)
@@ -376,7 +376,6 @@ you should place your code here."
 
   ;; workaround for a bug when paste commands don't respect universal argument
   (khaoos-autoindent-on-paste-workaround)
-
 )
 
 (defun khaoos-toggle-fill-column (colnum &rest auto-fill-on)
@@ -563,15 +562,21 @@ which at the moment could be a method of a family of quail input methods"
     (khaoos-run-evil-command-respect-input-method 'khaoos--append-one-char))
 )
 
-(defun khaoos-evil-avy-goto-char ()
-  "Make `'evil-avy-go-to-char respect the current input method"
-  (interactive)
-  (khaoos-run-evil-command-respect-input-method 'evil-avy-goto-char))
+(with-eval-after-load "evil-integration"
+  (defun khaoos-avy-goto-char ()
+    "Make `evil-avy-go-to-char' respect the current input method"
+    (interactive)
+    (khaoos-run-evil-command-respect-input-method 'avy-goto-char))
 
-(defun khaoos-evil-avy-goto-word-or-subword-1 ()
-  "Make `'evil-avy-go-to-char respect the current input method"
-  (interactive)
-  (khaoos-run-evil-command-respect-input-method 'evil-avy-goto-word-or-subword-1))
+  (evil-define-avy-motion khaoos-avy-goto-char inclusive)
+
+  (defun khaoos-avy-goto-word-or-subword-1 ()
+    "Make `evil-avy-go-to-char' respect the current input method"
+    (interactive)
+    (khaoos-run-evil-command-respect-input-method 'avy-goto-word-or-subword-1))
+
+  (evil-define-avy-motion khaoos-avy-goto-word-or-subword-1 exclusive)
+)
 
 (defun khaoos-autoindent-on-paste-workaround ()
   "bugfix by @chlodapp taken from https://github.com/syl20bnr/spacemacs/issues/4219
