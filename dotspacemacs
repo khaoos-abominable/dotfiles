@@ -361,12 +361,14 @@ you should place your code here."
   (define-key evil-insert-state-map (kbd "C-,") 'backward-delete-char-untabify)
   (define-key evil-insert-state-map (kbd "C-.") 'delete-char)
 
-  ;; Rebind normal commands that don't respect input method
+  ;; Rebind commands that don't respect input method
   (define-key evil-normal-state-map (kbd "r") 'khaoos-evil-replace)
   (define-key evil-motion-state-map (kbd "f") 'khaoos-evil-find-char)
   (define-key evil-motion-state-map (kbd "t") 'khaoos-evil-find-char-to)
   (define-key evil-motion-state-map (kbd "F") 'khaoos-evil-find-char-backward)
   (define-key evil-motion-state-map (kbd "T") 'khaoos-evil-find-char-to-backward)
+  (spacemacs/set-leader-keys "jj" 'khaoos-evil-avy-goto-char)
+  (spacemacs/set-leader-keys "jw" 'khaoos-evil-avy-goto-word-or-subword-1)
 
   ;; Keyboard combinations to insert or append just one character in normal mode
   (define-key evil-normal-state-map (kbd "M-i") 'khaoos-insert-one-char)
@@ -561,6 +563,16 @@ which at the moment could be a method of a family of quail input methods"
     (khaoos-run-evil-command-respect-input-method 'khaoos--append-one-char))
 )
 
+(defun khaoos-evil-avy-goto-char ()
+  "Make `'evil-avy-go-to-char respect the current input method"
+  (interactive)
+  (khaoos-run-evil-command-respect-input-method 'evil-avy-goto-char))
+
+(defun khaoos-evil-avy-goto-word-or-subword-1 ()
+  "Make `'evil-avy-go-to-char respect the current input method"
+  (interactive)
+  (khaoos-run-evil-command-respect-input-method 'evil-avy-goto-word-or-subword-1))
+
 (defun khaoos-autoindent-on-paste-workaround ()
   "bugfix by @chlodapp taken from https://github.com/syl20bnr/spacemacs/issues/4219
 paste command don't respect universal argument which should prohibit auto-indentation"
@@ -583,6 +595,7 @@ paste command don't respect universal argument which should prohibit auto-indent
     (evil-end-undo-step)
     (ad-set-arg 0 prefix))) ; khaoos+
 )
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
