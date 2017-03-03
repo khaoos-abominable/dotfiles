@@ -330,8 +330,10 @@ you should place your code here."
   (electric-indent-mode -1)
 
   ;; settings for sql-mode
-  ;; make underscore symbol act like a space character in sql-mode
+  ;; make underscore symbol act like a word costituen in sql-mode
   (add-hook 'sql-mode-hook (lambda () (modify-syntax-entry ?_ "w" sql-mode-syntax-table)))
+  ;; highlight oracle keywords by default
+  (add-hook 'sql-mode-hook (sql-highlight-oracle-keywords))
   ;; key-binding for sending the whole line in the sql buffer
   (spacemacs/set-leader-keys-for-major-mode 'sql-mode "sl" 'sql-send-line-and-next)
   ;; key-binding for start new connection
@@ -386,7 +388,7 @@ you should place your code here."
 (defun khaoos-sql-oracle-start ()
   (interactive)
   (sql-set-product 'oracle)
-  (sql-product-interactive 'oracle))
+  (sql-product-interactive koracle))
 
 (defvar khaoos-input-method-last-raw-key nil
   "The last key pressed with an input method switched on but ignoring conversion
