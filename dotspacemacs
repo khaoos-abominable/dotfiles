@@ -327,12 +327,10 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("\\.pck\\'" . sql-mode))
 
   ;; settings for sql-mode
-  (with-eval-after-load "sql-mode"
-    ;; make underscore symbol act like a word costituen in sql-mode
-    (add-hook 'sql-mode-hook (lambda () (modify-syntax-entry ?_ "w" sql-mode-syntax-table)))
-    ;; highlight oracle keywords by default
-    (add-hook 'sql-mode-hook (sql-highlight-oracle-keywords))
-  )
+  ;; make underscore symbol act like a word costituen in sql-mode
+  (add-hook 'sql-mode-hook (lambda () (modify-syntax-entry ?_ "w" sql-mode-syntax-table)))
+  ;; highlight oracle keywords by default
+  (add-hook 'sql-mode-hook 'sql-highlight-oracle-keywords)
   ;; key-binding for sending the whole line in the sql buffer
   (spacemacs/set-leader-keys-for-major-mode 'sql-mode "sl" 'sql-send-line-and-next)
   ;; key-binding for start new connection
