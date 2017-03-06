@@ -367,6 +367,7 @@ you should place your code here."
   (define-key evil-motion-state-map (kbd "F") 'khaoos-evil-find-char-backward)
   (define-key evil-motion-state-map (kbd "T") 'khaoos-evil-find-char-to-backward)
   (spacemacs/set-leader-keys "jj" 'evil-khaoos-avy-goto-char)
+  (spacemacs/set-leader-keys "jJ" 'evil-khaoos-avy-goto-char-2)
   (spacemacs/set-leader-keys "jw" 'evil-khaoos-avy-goto-word-or-subword-1)
 
   ;; Keyboard combinations to insert or append just one character in normal mode
@@ -568,6 +569,13 @@ which at the moment could be a method of a family of quail input methods"
     (khaoos-run-evil-command-respect-input-method 'avy-goto-char))
 
   (evil-define-avy-motion khaoos-avy-goto-char inclusive)
+
+  (defun khaoos-avy-goto-char-2 ()
+    "Make `evil-avy-go-to-char-2' respect the current input method"
+    (interactive)
+    (khaoos-run-evil-command-respect-input-method 'avy-goto-char-2))
+
+  (evil-define-avy-motion khaoos-avy-goto-char-2 inclusive)
 
   (defun khaoos-avy-goto-word-or-subword-1 ()
     "Make `evil-avy-go-to-char' respect the current input method"
