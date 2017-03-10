@@ -42,7 +42,7 @@ values."
      (spell-checking :variables spell-checking-enable-by-default nil)
      ;; syntax-checking
      sql
-     themes-megapack
+     (themes-megapack :packages sanityinc-solarized-dark sanityinc-solarized-light)
      ;; version-control
      windows-scripts
      )
