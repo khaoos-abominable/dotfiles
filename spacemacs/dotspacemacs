@@ -31,27 +31,20 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     windows-scripts
-     sql
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
-     helm
      auto-completion
-     ;; better-defaults
      emacs-lisp
      ;; git
-     ;; markdown
-     org
-     ;; (shell :variabls
+     helm
+     ;; org
+     ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      (spell-checking :variables spell-checking-enable-by-default nil)
      ;; syntax-checking
+     sql
+     themes-megapack
      ;; version-control
-     ;; evil-commentary
+     windows-scripts
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -301,10 +294,14 @@ before packages are loaded. If you are unsure, you should try in setting them in
     ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
     ;; several times cycle between the kill ring content. (default nil)
     dotspacemacs-enable-paste-transient-state t
-  )
+    ;; List of themes, the first of the list is loaded when spacemacs starts.
+    ;; Press <SPC> T n to cycle to the next theme in the list (works great
+    ;; with 2 themes variants, one dark and one light)
+    dotspacemacs-themes '(sanityinc-solarized-dark
+                          sanityinc-solarized-light)
   ;; enable spell-checking via aspell
   (add-to-list 'exec-path "C:/Program Files (x86)/Aspell/bin/")
-  (setq-default ispell-program-name "aspell")
+  (setq-default ispell-program-name "aspell"))
 )
 
 (defun dotspacemacs/user-config ()
