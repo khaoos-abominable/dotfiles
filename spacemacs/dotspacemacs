@@ -41,6 +41,7 @@ values."
      ;;        shell-default-position 'bottom)
      (spell-checking :variables spell-checking-enable-by-default nil)
      ;; syntax-checking
+     shell-scripts
      sql
      (themes-megapack :packages sanityinc-solarized-dark sanityinc-solarized-light)
      ;; version-control
