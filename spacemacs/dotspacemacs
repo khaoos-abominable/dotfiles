@@ -298,10 +298,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
     ;; Press <SPC> T n to cycle to the next theme in the list (works great
     ;; with 2 themes variants, one dark and one light)
     dotspacemacs-themes '(sanityinc-solarized-dark
-                          sanityinc-solarized-light)
+                          sanityinc-solarized-light))
+
   ;; enable spell-checking via aspell
-  (add-to-list 'exec-path "C:/Program Files (x86)/Aspell/bin/")
-  (setq-default ispell-program-name "aspell"))
+  (when (eq system-type 'windows-nt)
+    (add-to-list 'exec-path "C:/Program Files (x86)/Aspell/bin/"))
+  (setq-default ispell-program-name "aspell")
 )
 
 (defun dotspacemacs/user-config ()
