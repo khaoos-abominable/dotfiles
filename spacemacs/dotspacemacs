@@ -35,9 +35,7 @@ values."
      emacs-lisp
      helm
      ranger
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     shell
      (spell-checking :variables spell-checking-enable-by-default nil)
      ;; syntax-checking
      shell-scripts
