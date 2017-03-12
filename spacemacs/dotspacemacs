@@ -34,6 +34,7 @@ values."
      auto-completion
      emacs-lisp
      helm
+     ranger
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
