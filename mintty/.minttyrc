@@ -1,5 +1,5 @@
 BoldAsFont=-1
-Font=Consolas
+Font=Source Code Pro
 FontHeight=10
 
 # Solarized Dark Theme (picked from https://github.com/oumu/mintty-color-schemes)
@@ -22,3 +22,5 @@ Cyan=42,161,152
 BoldCyan=71,207,197
 White=147,161,161
 BoldWhite=253,246,227
+Locale=ru_RU
+Charset=UTF-8
