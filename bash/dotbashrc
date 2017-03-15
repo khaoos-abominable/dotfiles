@@ -1,7 +1,6 @@
 # .bashrc
 
 alias em='emacsclient -c -a ""'
-alias emn='emacsclient -c -na ""'
 alias ll='ls -lF'
 
 set -o vi
