@@ -41,6 +41,7 @@ values."
      shell-scripts
      sql
      (version-control :variables version-control-diff-tool 'diff-hl)
+     vimscript
      windows-scripts
      )
    ;; List of additional packages that will be installed without being
