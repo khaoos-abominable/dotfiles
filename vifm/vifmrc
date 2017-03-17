@@ -28,7 +28,12 @@ set nofollowlinks
 " With this option turned on you can run partially entered commands with
 " unambiguous beginning using :! (e.g. :!Te instead of :!Terminal or :!Te<tab>).
 
-set fastrun
+" khaoos. This options leads to unexptected behavior in version 0.8.2 on windows when 
+" shell commands act on fallback directory instead of the current one which contains spaces or cyrillic symbols.
+" https://github.com/vifm/vifm/issues/265
+if !has('win')
+    set fastrun
+endif
 
 " Natural sort of (version) numbers within text.
 
