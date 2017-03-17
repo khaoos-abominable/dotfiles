@@ -21,6 +21,7 @@ set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
 set number         	" show line number
+set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab " tabulation options
 
 " try encodings when open a file
 set fileencodings=utf8,cp1251
