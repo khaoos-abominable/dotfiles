@@ -107,7 +107,7 @@ endif
 
 set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
 
-" Remove confirmation for deleting in the thrash
+" Remove confirmation for deleting in the trash
 set confirm-=delete
 
 " ------------------------------------------------------------------------------
