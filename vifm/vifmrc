@@ -107,6 +107,9 @@ endif
 
 set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
 
+" Remove confirmation for deleting in the thrash
+set confirm-=delete
+
 " ------------------------------------------------------------------------------
 
 " :mark mark /full/directory/path [filename]
