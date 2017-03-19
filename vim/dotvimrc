@@ -37,7 +37,7 @@ map Q gq
 inoremap <C-U> <C-G>u<C-U>
 
 " key sequence to escape from insert mode
-:imap fj <Esc>
+imap fj <Esc>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -116,3 +116,4 @@ nmap ф a
 nmap щ o
 nmap г u
 nmap З P
+imap ао fj  
