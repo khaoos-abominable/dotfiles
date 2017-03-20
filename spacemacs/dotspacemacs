@@ -318,6 +318,9 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("svn-commit\\.tmp" . text-mode))
   (add-to-list 'auto-mode-alist '("\\.pck\\'" . sql-mode))
 
+  ;; enable evil-mc globally
+  (global-evil-mc-mode 1)
+
   ;; settings for sql-mode
   (add-hook 'sql-mode-hook
     (lambda ()
