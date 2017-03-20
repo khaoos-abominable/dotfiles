@@ -1,0 +1,2 @@
+# enable vi mode for editing command-line
+set editing_mode vi
