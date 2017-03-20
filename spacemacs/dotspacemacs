@@ -360,8 +360,7 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "C-;") 'evil-repeat-find-char-reverse)
 
   ;; Keyboard combinations to delete charcters
-  (define-key evil-insert-state-map (kbd "C-,") 'backward-delete-char-untabify)
-  (define-key evil-insert-state-map (kbd "C-.") 'delete-char)
+  (define-key evil-insert-state-map (kbd "C-h") 'backward-delete-char-untabify)
 
   ;; Rebind commands that don't respect input method
   (define-key evil-normal-state-map (kbd "r") 'khaoos-evil-replace)
