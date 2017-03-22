@@ -490,21 +490,36 @@ nnoremap <a-o> :sync %c<cr>
 " commands for diff files and directories in various ways
 " Next command picked from https://wiki.vifm.info/index.php?title=Comparing_files
 " compares two files or directories and says whether they are equal or not
-command! cmpinternal compare-cmd %a %S
+command! internalcmp compare-cmd %a %S
 command! cmp : if expand('%%"c') == expand('%%"f')
            \ |     echo expand('Comparing %%"c and %%"C:t ...')
-           \ |     cmpinternal %"c %"C
+           \ |     internalcmp %"c %"C
            \ | else
            \ |     echo expand('Comparing files: %%"f ...')
-           \ |     cmpinternal %"f
+           \ |     internalcmp %"f
            \ | endif
 
 " compares two files or directories with winmerge
-command! wdiffinternal winmergeu %a &
+command! internalwdiff winmergeu %a &
 command! wdiff : if expand('%%"c') == expand('%%"f')
              \ |     echo expand('Diff with WinMerge %%"c and %%"C:t ...')
-             \ |     wdiffinternal %"c %"C
+             \ |     internalwdiff %"c %"C
              \ | else
              \ |     echo expand('Diff with WinMerge files: %%"f ...')
-             \ |     wdiffinternal %"f
+             \ |     internalwdiff %"f
              \ | endif
+
+" compares two files or directories with kdiff3
+command! internalkdiff kdiff3 %a &
+command! kdiff : if expand('%%"c') == expand('%%"f')
+             \ |     echo expand('Diff with kdiff3 %%"c and %%"C:t ...')
+             \ |     internalkdiff %"c %"C
+             \ | else
+             \ |     echo expand('Diff with kdiff3 files: %%"f ...')
+             \ |     internalkdiff %"f
+             \ | endif
+
+" merges three files or directories with kdiff3
+command! internalkmerge "kdiff-merge" %a & 
+command! kmerge : echo expand('Merge with kdiff3 files: %%"f ...')
+              \ | internalkmerge %"f 
