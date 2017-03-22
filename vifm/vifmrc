@@ -473,7 +473,7 @@ nnoremap <a-o> :sync %c<cr>
 
 " ------------------------------------------------------------------------------
 
-" Various customization examples
+" Various customizations
 
 " Use ag (the silver searcher) instead of grep
 "
@@ -486,3 +486,25 @@ nnoremap <a-o> :sync %c<cr>
 " Block particular shortcut
 "
 " nnoremap <left> <nop>
+
+" commands for diff files and directories in various ways
+" Next command picked from https://wiki.vifm.info/index.php?title=Comparing_files
+" compares two files or directories and says whether they are equal or not
+command! cmpinternal compare-cmd %a %S
+command! cmp : if expand('%%"c') == expand('%%"f')
+           \ |     echo expand('Comparing %%"c and %%"C:t ...')
+           \ |     cmpinternal %"c %"C
+           \ | else
+           \ |     echo expand('Comparing files: %%"f ...')
+           \ |     cmpinternal %"f
+           \ | endif
+
+" compares two files or directories with winmerge
+command! wdiffinternal winmergeu %a &
+command! wdiff : if expand('%%"c') == expand('%%"f')
+             \ |     echo expand('Diff with WinMerge %%"c and %%"C:t ...')
+             \ |     wdiffinternal %"c %"C
+             \ | else
+             \ |     echo expand('Diff with WinMerge files: %%"f ...')
+             \ |     wdiffinternal %"f
+             \ | endif
