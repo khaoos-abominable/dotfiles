@@ -1,4 +1,4 @@
-AutoAdvance=0
+AutoAdvance=1
 AutoAdvanceDelay=500
 AutoCopySelection=0
 AutoDetectUnicodeA=1
