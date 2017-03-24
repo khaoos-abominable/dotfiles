@@ -325,9 +325,9 @@ fileviewer *.7z 7z l %c
 
 " Office files
 if !has('win')
-  filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx,*.ods libreoffice %f &
+  filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx,*.ods,*.csv libreoffice %f &
 else
-  filextype doc,*.docx,*.xls,*.xlsx,*.ppt,*.pptx explorer
+  filextype doc,*.docx,*.xls,*.xlsx,*.ppt,*.pptx,*.csv explorer
 endif
 fileviewer *.doc catdoc %c
 fileviewer *.docx, docx2txt.pl %f -
