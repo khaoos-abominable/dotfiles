@@ -471,6 +471,14 @@ nnoremap <f8> :delete<cr>
 nnoremap <c-o> :sync %c<cr><tab>
 nnoremap <a-o> :sync %c<cr>
 
+" activates the history of commands
+nnoremap <c-p> :<c-p>
+
+" convenient combinations to execute shell commands
+nnoremap @ :!
+nnoremap # :!!
+nnoremap & :!<space>&<left><left>
+
 " ------------------------------------------------------------------------------
 
 " Various customizations
