@@ -17,8 +17,8 @@
 this mode's logic will be evaluated.")
 
 (defvar khaoos-sqlup-keywords-regexps
-  '("select" "from" "where" "insert" "into" "update" "set" "delete" "merge" "matched" "distinct"
-    "join" "left" "right" "full" "on" "union" "all" "exists" "minus" "intersect"
+  '("select" "from" "where" "insert" "into" "update" "set" "delete" "merge" "matched" "distinct" "values" "having" "order" "by" "as"
+    "join" "left" "right" "full" "on" "union" "all" "exists" "minus" "intersect" "with"
     "or" "and" "not" "in" "is" "null"
     "sum" "max" "min" "avg"
     "case" "when" "then" "else" "if" "loop" "for" "while"
