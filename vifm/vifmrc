@@ -110,6 +110,9 @@ set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
 " Remove confirmation for deleting in the trash
 set confirm-=delete
 
+" Substitute with g option by default
+set gdefault
+
 " ------------------------------------------------------------------------------
 
 " :mark mark /full/directory/path [filename]
@@ -386,11 +389,9 @@ set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
 
 " ------------------------------------------------------------------------------
 
-" Examples of configuring both panels
-
-" Customize view columns a bit (enable ellipsis for truncated file names)
-"
-" windo set viewcolumns=-{name}..,6{}.
+" Customize view columns 
+set viewcolumns=-70%{name}.,8%{ext},14%{mtime},8%{size}
+set timefmt="%y/%m/%d %H:%M"
 
 " Filter-out build and temporary files
 "
