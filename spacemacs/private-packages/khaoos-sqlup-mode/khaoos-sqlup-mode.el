@@ -17,15 +17,21 @@
 this mode's logic will be evaluated.")
 
 (defvar khaoos-sqlup-keywords-regexps
-  '("select" "from" "where" "insert" "into" "update" "set" "delete" "merge" "matched" "distinct" "values" "having" "order" "by" "as"
+  '("select" "from" "where" "distinct" "having" "order" "by" "as"
+    "insert" "into" "values"
+    "update" "set"
+    "delete"
+    "merge" "matched" "using"
     "join" "left" "right" "full" "on" "union" "all" "exists" "minus" "intersect" "with"
     "or" "and" "not" "in" "is" "null"
-    "sum" "max" "min" "avg"
-    "case" "when" "then" "else" "if" "loop" "for" "while"
-    "begin" "end"
-    "date"
-    "row_number"
+    "case" "when" "then" "else" "end"
     "over" "partition" "by"
+    "sum" "max" "min" "avg"
+    "decode" "nvl" "nvl2"
+    "date" "sysdate"
+    "row_number"
+    "begin" "end"
+    "if" "loop" "for" "while"
     "procedure" "function" "package"
     "create" "drop"
     "table" "index" "sequence" "comment" "tablespace"
@@ -42,11 +48,11 @@ this mode's logic will be evaluated.")
 
 (defun sqlup-enable-keyword-capitalization ()
   "Add buffer-local hook to handle this mode's logic"
-  (add-hook 'post-command-hook 'sqlup-capitalize-as-you-type nil t))
+  (add-hook 'post-command-hook 'sqlup-capitalize-as-you-type nil t)
 
-(defun sqlup-disable-keyword-capitalization ()
-  "Remove buffer-local hook to handle this mode's logic"
-  (remove-hook 'post-command-hook 'sqlup-capitalize-as-you-type t))
+  (defun sqlup-disable-keyword-capitalization ()
+    "Remove buffer-local hook to handle this mode's logic"
+    (remove-hook 'post-command-hook 'sqlup-capitalize-as-you-type t)))
 
 (defun sqlup-capitalize-as-you-type ()
   "If the user typed a trigger key, check if we should capitalize
