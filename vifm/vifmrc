@@ -5,8 +5,6 @@
 " you will need to change this setting.
 
 set vicmd=vim
-" set vicmd=elvis\ -G\ termcap
-" set vicmd=vile
 
 " Trash Directory
 " The default is to move files that are deleted with dd or :d to
@@ -80,8 +78,7 @@ set wildstyle=popup
 
 set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
 
-" Ignore case in search patterns unless it contains at least one uppercase
-" letter
+" Ignore case in search patterns unless it contains at least one uppercase letter
 
 set ignorecase
 set smartcase
@@ -112,6 +109,14 @@ set confirm-=delete
 
 " Substitute with g option by default
 set gdefault
+
+" On windows use msys2-find program instead of windows one
+if has('win')
+    set findprg="msys2find %s %a -print , -type d \( ! -readable -o ! -executable \) -prune" 
+endif
+
+" treat _ (ascii code 95) as a word boundary
+set wordchars="1-8,14-31,33-94,96-255" 
 
 " ------------------------------------------------------------------------------
 

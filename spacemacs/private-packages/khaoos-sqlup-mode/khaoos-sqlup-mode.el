@@ -17,7 +17,8 @@
 this mode's logic will be evaluated.")
 
 (defvar khaoos-sqlup-keywords-regexps
-  '("select" "from" "where" "distinct" "having" "order" "by" "as"
+  '("select" "from" "where" "distinct" "as" "having"
+    "order" "by" "asc" "desc" "nulls" "last" "first"
     "insert" "into" "values"
     "update" "set"
     "delete"
@@ -28,11 +29,15 @@ this mode's logic will be evaluated.")
     "over" "partition" "by"
     "sum" "max" "min" "avg"
     "decode" "nvl" "nvl2"
-    "date" "sysdate"
-    "row_number"
+    "sysdate"
+    "row_number" "keep" "dense_rank" "rank", "listagg"
+    "trunc" "round"
     "begin" "end"
+    "date" "number" "boolean" "varchar2" "integer" "pls_integer" "clob"
+    "constant" "default" "true" "false"
     "if" "loop" "for" "while"
     "procedure" "function" "package"
+    "commit" "rollback"
     "create" "drop"
     "table" "index" "sequence" "comment" "tablespace"
     "move" "rebuild"
