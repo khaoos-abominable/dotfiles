@@ -115,8 +115,8 @@ if has('win')
     set findprg="msys2find %s %a -print , -type d \( ! -readable -o ! -executable \) -prune" 
 endif
 
-" treat _ (ascii code 95) as a word boundary
-set wordchars="1-8,14-31,33-94,96-255" 
+" treat "_" (code 95), "." (46), "#" (35) as word boundary symbols
+set wordchars="1-8,14-31,33,34,36-45,47-94,96-255" 
 
 " ------------------------------------------------------------------------------
 
