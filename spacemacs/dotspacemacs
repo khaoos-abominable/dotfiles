@@ -300,7 +300,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
     ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
     ;; This variable can also be set to a property list for finer control:
     ;; (default nil)
-    dotspacemacs-line-numbers 
+    dotspacemacs-line-numbers
       '(:relative t
         :disabled-for-modes dired-mode
                             doc-view-mode
@@ -337,6 +337,8 @@ you should place your code here."
   ;; set files associations
   (add-to-list 'auto-mode-alist '("svn-commit\\.tmp" . text-mode))
   (add-to-list 'auto-mode-alist '("\\.pck\\'" . sql-mode))
+  (add-to-list 'auto-mode-alist '("\\.fnc\\'" . sql-mode))
+  (add-to-list 'auto-mode-alist '("\\.prc\\'" . sql-mode))
 
   ;; enable evil-mc globally
   (global-evil-mc-mode 1)

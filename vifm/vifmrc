@@ -395,7 +395,7 @@ set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
 " ------------------------------------------------------------------------------
 
 " Customize view columns 
-set viewcolumns=-70%{name}.,8%{ext},14%{mtime},8%{size}
+set viewcolumns=-70%{name}.,-8%{ext},14%{mtime},8%{size}
 set timefmt="%y/%m/%d %H:%M"
 
 " Filter-out build and temporary files

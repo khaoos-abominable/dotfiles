@@ -29,7 +29,7 @@ this mode's logic will be evaluated.")
     "over" "partition" "by"
     "sum" "max" "min" "avg"
     "decode" "nvl" "nvl2"
-    "sysdate"
+    "sysdate" "cast" "rownum"
     "row_number" "keep" "dense_rank" "rank", "listagg"
     "trunc" "round"
     "begin" "end"
@@ -38,7 +38,7 @@ this mode's logic will be evaluated.")
     "if" "loop" "for" "while"
     "procedure" "function" "package"
     "commit" "rollback"
-    "create" "drop"
+    "create" "drop" "replace"
     "table" "index" "sequence" "comment" "tablespace"
     "move" "rebuild"
     ))
