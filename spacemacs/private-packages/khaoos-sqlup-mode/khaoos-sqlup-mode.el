@@ -30,7 +30,7 @@ this mode's logic will be evaluated.")
     "sum" "max" "min" "avg"
     "decode" "nvl" "nvl2"
     "sysdate" "cast" "rownum"
-    "row_number" "keep" "dense_rank" "rank", "listagg"
+    "row_number" "keep" "dense_rank" "rank" "listagg"
     "trunc" "round"
     "begin" "end"
     "date" "number" "boolean" "varchar2" "integer" "pls_integer" "clob"
