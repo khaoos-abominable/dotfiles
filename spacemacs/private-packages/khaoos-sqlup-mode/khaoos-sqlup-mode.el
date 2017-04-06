@@ -32,7 +32,7 @@ this mode's logic will be evaluated.")
     "sysdate" "cast" "rownum"
     "row_number" "keep" "dense_rank" "rank" "listagg"
     "trunc" "round"
-    "begin" "end"
+    "declare" "begin" "end"
     "date" "number" "boolean" "varchar2" "integer" "pls_integer" "clob"
     "constant" "default" "true" "false"
     "if" "loop" "for" "while"
