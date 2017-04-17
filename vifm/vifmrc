@@ -499,8 +499,11 @@ nnoremap E :view<cr>
 " Various customizations
 
 " Use ag (the silver searcher) instead of grep
-"
-" set grepprg=ag\ --line-numbers\ %i\ %a\ %s
+if has('win')
+    set grepprg="ag --nocolor --nogroup %i %a %s"
+else
+    set grepprg="ag --nogroup %i %a %s"
+endif
 
 " Add additional place to look for executables
 "
