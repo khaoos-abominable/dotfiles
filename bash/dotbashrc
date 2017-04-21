@@ -2,6 +2,7 @@
 
 alias em='emacsclient -c -a ""'
 alias ll='ls -lF'
+alias vifm='winpty vifm'
 
 set -o vi
 
