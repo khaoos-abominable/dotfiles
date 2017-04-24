@@ -1,5 +1,5 @@
 # enable vi mode for editing command-line
-set editing_mode vi
+#set editing_mode vi
 
 $if mode=vi
 set keymap vi-insert
