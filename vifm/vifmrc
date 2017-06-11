@@ -193,11 +193,12 @@ filextype *.ps,*.eps,*.ps.gz
         \ gv %c %i &,
 
 " Djvu
-filextype *.djvu
-        \ {View in zathura}
-        \ zathura %f,
-        \ {View in apvlv}
-        \ apvlv %f,
+"filextype *.djvu
+"        \ {View in zathura}
+"        \ zathura %f,
+"        \ {View in apvlv}
+"        \ apvlv %f,
+filetype *.djvu xdg-open
 
 " Audio
 filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
