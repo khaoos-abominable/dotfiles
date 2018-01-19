@@ -496,6 +496,10 @@ nnoremap & :!<space>&<left><left>
 " enter view mode in other pane
 nnoremap E :view<cr>
 
+" ctrl+p and ctrl+n search in history
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
 " ------------------------------------------------------------------------------
 
 " Various customizations
