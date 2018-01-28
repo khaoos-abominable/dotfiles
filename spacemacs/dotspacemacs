@@ -311,7 +311,14 @@ before packages are loaded. If you are unsure, you should try in setting them in
         :size-limit-kb 50)
     ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
     ;; several times cycle between the kill ring content. (default nil)
-    dotspacemacs-enable-paste-transient-state t)
+    dotspacemacs-enable-paste-transient-state t
+    ;; These variables control whether separate commands are bound in the GUI to
+    ;; the key pairs C-i, TAB and C-m, RET.
+    ;; Setting it to a non-nil value, allows for separate commands under <C-i>
+    ;; and TAB or <C-m> and RET.
+    ;; In the terminal, these pairs are generally indistinguishable, so this only
+    ;; works in the GUI. (default nil)
+    dotspacemacs-distinguish-gui-tab t)
 
   ;; enable spell-checking via aspell
   (when (eq system-type 'windows-nt)
