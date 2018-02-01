@@ -181,8 +181,9 @@ command! reload :write | restart
 " program.
 
 " Pdf
-filextype *.pdf zathura %c %i &, apvlv %c, xpdf %c
-fileviewer *.pdf pdftotext -nopgbrk %c -
+" filextype *.pdf zathura %c %i &, apvlv %c, xpdf %c
+" fileviewer *.pdf pdftotext -nopgbrk %c -
+filetype *.pdf xdg-open
 
 " PostScript
 filextype *.ps,*.eps,*.ps.gz
@@ -192,11 +193,12 @@ filextype *.ps,*.eps,*.ps.gz
         \ gv %c %i &,
 
 " Djvu
-filextype *.djvu
-        \ {View in zathura}
-        \ zathura %f,
-        \ {View in apvlv}
-        \ apvlv %f,
+"filextype *.djvu
+"        \ {View in zathura}
+"        \ zathura %f,
+"        \ {View in apvlv}
+"        \ apvlv %f,
+filetype *.djvu xdg-open
 
 " Audio
 filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
@@ -493,6 +495,10 @@ nnoremap & :!<space>&<left><left>
 
 " enter view mode in other pane
 nnoremap E :view<cr>
+
+" ctrl+p and ctrl+n search in history
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
 
 " ------------------------------------------------------------------------------
 
