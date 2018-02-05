@@ -107,7 +107,10 @@ if has('syntax') && has('eval')
   packadd matchit
 endif
 
+" ignore case when search
 set ignorecase
+" smart disabling of ignorecase
+set smartcase
 
 " Russian keymap. Picked from https://gist.github.com/sigsergv/5329458
 set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
