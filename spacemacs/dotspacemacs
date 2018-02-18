@@ -79,7 +79,7 @@ values."
    ;; (default t)
    dotspacemacs-elpa-https t
    ;; Maximum allowed time in seconds to contact an ELPA repository.
-   dotspacemacs-elpa-timeout 50
+   dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
@@ -312,6 +312,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
     ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
     ;; several times cycle between the kill ring content. (default nil)
     dotspacemacs-enable-paste-transient-state t
+    ;; Maximum allowed time in seconds to contact an ELPA repository.
+    dotspacemacs-elpa-timeout 50
     ;; These variables control whether separate commands are bound in the GUI to
     ;; the key pairs C-i, TAB and C-m, RET.
     ;; Setting it to a non-nil value, allows for separate commands under <C-i>
