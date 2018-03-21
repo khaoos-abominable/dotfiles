@@ -559,4 +559,4 @@ command! kmerge : echo expand('Merge with kdiff3 files: %%"f ...')
 
 " useful shortcuts
 command! rm !rm %"c
-command! rmr !rm -r %c
+command! rmr !rm -r %"c
