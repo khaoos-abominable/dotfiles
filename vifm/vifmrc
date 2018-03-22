@@ -1,10 +1,25 @@
-" -*-Vimrc-*-  emacs major mode to edit this file
+" vim: filetype=vifm :
+" Sample configuration file for vifm (last updated: 21 January, 2018)
+" You can edit this file by hand.
+" The " character at the beginning of a line comments out the line.
+" Blank lines are ignored.
+" The basic format for each item is shown with an example.
+
+" ------------------------------------------------------------------------------
 
 " This is the actual command used to start vi.  The default is vim.
 " If you would like to use another vi clone such as Elvis or Vile
 " you will need to change this setting.
 
 set vicmd=vim
+" set vicmd=elvis\ -G\ termcap
+" set vicmd=vile
+
+" This makes vifm perform file operations on its own instead of relying on
+" standard utilities like `cp`.  While using `cp` and alike is a more universal
+" solution, it's also much slower and doesn't support progress measuring.
+
+" set syscalls
 
 " Trash Directory
 " The default is to move files that are deleted with dd or :d to
@@ -26,12 +41,7 @@ set nofollowlinks
 " With this option turned on you can run partially entered commands with
 " unambiguous beginning using :! (e.g. :!Te instead of :!Terminal or :!Te<tab>).
 
-" khaoos. This options leads to unexptected behavior in version 0.8.2 on windows when 
-" shell commands act on fallback directory instead of the current one which contains spaces or cyrillic symbols.
-" https://github.com/vifm/vifm/issues/265
-if !has('win')
-    set fastrun
-endif
+" set fastrun
 
 " Natural sort of (version) numbers within text.
 
@@ -50,10 +60,6 @@ set novimhelp
 " press return on the file name set this.
 
 set norunexec
-
-" Use KiB, MiB, ... instead of KB, MB, ...
-
-set noiec
 
 " Selected color scheme
 
@@ -78,7 +84,8 @@ set wildstyle=popup
 
 set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
 
-" Ignore case in search patterns unless it contains at least one uppercase letter
+" Ignore case in search patterns unless it contains at least one uppercase
+" letter
 
 set ignorecase
 set smartcase
@@ -111,9 +118,10 @@ set confirm-=delete
 set gdefault
 
 " On windows use msys2-find program instead of windows one
-if has('win')
-    set findprg="msys2find %s %a -print , -type d \( ! -readable -o ! -executable \) -prune" 
-endif
+" Commented out as not using msys2 anymore
+"if has('win')
+"   set findprg="msys2find %s %a -print , -type d \( ! -readable -o ! -executable \) -prune" 
+"endif
 
 " treat "_" (code 95), "." (46), "#" (35) as word boundary symbols
 set wordchars="1-8,14-31,33,34,36-45,47-94,96-255" 
@@ -326,12 +334,12 @@ filetype *.iso
 " SshMount
 filetype *.ssh
        \ {Mount with sshfs}
-       \ FUSE_MOUNT2|sshfs %PARAM %DESTINATION_DIR,
+       \ FUSE_MOUNT2|sshfs %PARAM %DESTINATION_DIR %FOREGROUND,
 
 " FtpMount
 filetype *.ftp
        \ {Mount with curlftpfs}
-       \ FUSE_MOUNT2|curlftpfs %PARAM %DESTINATION_DIR,
+       \ FUSE_MOUNT2|curlftpfs -o ftp_port=-,,disable_eprt %PARAM %DESTINATION_DIR %FOREGROUND,
 
 " Fuse7z and 7z archives
 filetype *.7z
