@@ -189,8 +189,8 @@ command! reload :write | restart
 " program.
 
 " Pdf
-filetype *.pdf start
 filextype *.pdf zathura %c %i &, apvlv %c, xpdf %c
+filetype *.pdf start
 fileviewer *.pdf pdftotext -nopgbrk %c -
 
 " PostScript
@@ -201,12 +201,12 @@ filextype *.ps,*.eps,*.ps.gz
         \ gv %c %i &,
 
 " Djvu
-filetype *.djvu start
 filextype *.djvu
         \ {View in zathura}
         \ zathura %f,
         \ {View in apvlv}
         \ apvlv %f,
+filetype *.djvu start
 
 " Audio
 filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
@@ -348,8 +348,8 @@ filetype *.7z
 fileviewer *.7z 7z l %c
 
 " Office files
-filetype *.doc,*.docx,*.xls,*.xlsx,*.ppt,*.pptx,*.csv explorer
 filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx,*.ods,*.csv libreoffice %f &
+filetype *.doc,*.docx,*.xls,*.xlsx,*.ppt,*.pptx,*.csv explorer
 
 fileviewer *.doc catdoc %c
 fileviewer *.docx, docx2txt.pl %f -
