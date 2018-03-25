@@ -339,7 +339,7 @@ filetype *.ssh
 " FtpMount
 filetype *.ftp
        \ {Mount with curlftpfs}
-       \ FUSE_MOUNT2|curlftpfs -o ftp_port=-,,disable_eprt %PARAM %DESTINATION_DIR %FOREGROUND,
+       \ FUSE_MOUNT2|curlftpfs %PARAM %DESTINATION_DIR,
 
 " Fuse7z and 7z archives
 filetype *.7z
