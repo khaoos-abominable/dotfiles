@@ -566,6 +566,11 @@ command! kdiff : if expand('%%"c') == expand('%%"f')
 
 " merges two or three files or directories with kdiff3
 command! internalkmerge "kdiff-merge" %a & 
-command! kmerge : echo expand('Merge with kdiff3 files: %%"f ...')
-              \ | internalkmerge %"f 
+command! kmerge : if expand('%%"c') == expand('%%"f')
+             \ |     echo expand('Merge with kdiff3 %%"c and %%"C:t ...')
+             \ |     internalkmerge %"c %"C
+             \ | else
+             \ |     echo expand('Merge with kdiff3 files: %%"f ...')
+             \ |     internalkmerge %"f
+             \ | endif
 
