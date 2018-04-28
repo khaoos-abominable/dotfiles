@@ -324,7 +324,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default ispell-program-name "aspell")
 
   ;; use locate even on windows machine
-  (setq-default helm-locate-command "locate %s -e -A --regex %s")
+  (setq-default helm-locate-command
+                (cl-case system-type
+                  (gnu/linux "locate %s -e -A --regex %s")
+                  (t "locate %s %s")))
 )
 
 (defun dotspacemacs/user-config ()
