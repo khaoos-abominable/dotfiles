@@ -322,6 +322,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (when (eq system-type 'windows-nt)
     (add-to-list 'exec-path "C:/Program Files (x86)/Aspell/bin/"))
   (setq-default ispell-program-name "aspell")
+
+  ;; use locate even on windows machine
+  (setq-default helm-locate-command "locate %s -e -A --regex %s")
 )
 
 (defun dotspacemacs/user-config ()
