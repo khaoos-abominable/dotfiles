@@ -1,5 +1,5 @@
 " vim: filetype=vifm :
-" Sample configuration file for vifm (last updated: 21 January, 2018)
+" Sample configuration file for vifm (last updated: 20 July, 2018)
 " You can edit this file by hand.
 " The " character at the beginning of a line comments out the line.
 " Blank lines are ignored.
@@ -17,9 +17,10 @@ set vicmd=vim
 
 " This makes vifm perform file operations on its own instead of relying on
 " standard utilities like `cp`.  While using `cp` and alike is a more universal
-" solution, it's also much slower and doesn't support progress measuring.
+" solution, it's also much slower when processing large amounts of files and
+" doesn't support progress measuring.
 
-" set syscalls
+set syscalls
 
 " Trash Directory
 " The default is to move files that are deleted with dd or :d to
@@ -63,7 +64,7 @@ set norunexec
 
 " Selected color scheme
 
-colorscheme Default
+colorscheme zenburn1
 
 " Format for displaying time in file list. For example:
 " TIME_STAMP_FORMAT=%m/%d-%H:%M
@@ -212,7 +213,7 @@ filetype *.djvu start
 " Audio
 filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
        \ {Play using ffplay}
-       \ ffplay -nodisp %c,
+       \ ffplay -nodisp -autoexit %c,
        \ {Play using MPlayer}
        \ mplayer %f,
 fileviewer *.mp3 mp3info
@@ -225,7 +226,7 @@ filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
         \ {View using xplayer}
         \ xplayer %f &,
         \ {View using ffplay}
-        \ ffplay -fs %f,
+        \ ffplay -fs -autoexit %f,
         \ {View using Dragon}
         \ dragon %f:p,
         \ {View using mplayer}
@@ -353,7 +354,7 @@ filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx,*.ods,*.csv libreoffice %
 filetype *.doc,*.docx,*.xls,*.xlsx,*.ppt,*.pptx,*.csv explorer
 
 fileviewer *.doc catdoc %c
-fileviewer *.docx, docx2txt.pl %f -
+fileviewer *.docx docx2txt.pl %f -
 
 " TuDu files
 filetype *.tudu tudu -f %c
@@ -409,6 +410,7 @@ set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
 " ------------------------------------------------------------------------------
 
 " Customize view columns 
+
 set viewcolumns=-70%{name}.,-8%{ext},14%{mtime},8%{size}
 set timefmt="%y/%m/%d %H:%M"
 
@@ -526,7 +528,7 @@ endif
 
 " Add additional place to look for executables
 "
-" let $PATH=$HOME.'/bin/fuse:'.$PATH
+" let $PATH = $HOME.'/bin/fuse:'.$PATH
 
 " Block particular shortcut
 "
