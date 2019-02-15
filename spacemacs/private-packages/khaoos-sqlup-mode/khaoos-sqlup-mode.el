@@ -37,7 +37,7 @@ this mode's logic will be evaluated.")
     "date" "number" "boolean" "varchar2" "integer" "pls_integer" "clob"
     "constant" "default" "true" "false"
     "if" "loop" "for" "while"
-    "to_char" "to_number"
+    "to_char" "to_number" "to_clob"
     "procedure" "function" "package"
     "commit" "rollback"
     "create" "drop" "replace"
