@@ -497,8 +497,8 @@ nnoremap <f7> :mkdir<space>
 nnoremap <f8> :delete<cr>
 
 " Open a folder under cursor
-nnoremap <c-o> :sync %c<cr><tab>
-nnoremap <a-o> :sync %c<cr>
+nnoremap o :sync %c<cr><tab>
+nnoremap O :sync %c<cr>
 
 " activates the history of commands
 nnoremap <c-p> :<c-p>
@@ -510,10 +510,6 @@ nnoremap & :!<space>&<left><left>
 
 " enter view mode in other pane
 nnoremap E :view<cr>
-
-" ctrl+p and ctrl+n search in history
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
 
 " ------------------------------------------------------------------------------
 
