@@ -128,6 +128,9 @@ endif
 " treat "_" (code 95), "." (46), "#" (35) as word boundary symbols
 set wordchars="1-8,14-31,33,34,36-45,47-94,96-255" 
 
+" make :filter command filter out all files that don't match the pattern rather than those that match
+set cpoptions-=f
+
 " ------------------------------------------------------------------------------
 
 " :mark mark /full/directory/path [filename]
