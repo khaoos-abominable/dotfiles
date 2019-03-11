@@ -17,14 +17,14 @@
 this mode's logic will be evaluated.")
 
 (defvar khaoos-sqlup-keywords-regexps
-  '("select" "from" "where" "distinct" "as" "having"
+  '("select" "from" "where" "distinct" "as" "group" "having"
     "order" "by" "asc" "desc" "nulls" "last" "first"
     "insert" "into" "values"
     "update" "set"
     "delete"
     "merge" "matched" "using"
     "join" "left" "right" "full" "on" "union" "all" "exists" "minus" "intersect" "with"
-    "or" "and" "not" "in" "is" "null"
+    "or" "and" "not" "in" "is" "null" "between"
     "case" "when" "then" "else" "end"
     "over" "partition" "by"
     "sum" "max" "min" "avg"
@@ -37,7 +37,7 @@ this mode's logic will be evaluated.")
     "date" "number" "boolean" "varchar2" "integer" "pls_integer" "clob"
     "constant" "default" "true" "false"
     "if" "loop" "for" "while"
-    "to_char" "to_number"
+    "to_char" "to_number" "to_clob"
     "procedure" "function" "package"
     "commit" "rollback"
     "create" "drop" "replace"
