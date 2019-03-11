@@ -131,6 +131,9 @@ set wordchars="1-8,14-31,33,34,36-45,47-94,96-255"
 " make :filter command filter out all files that don't match the pattern rather than those that match
 set cpoptions-=f
 
+" format for ruler: <file_number>/<total_visible_files_number> + <number_of_filter_out_files>
+set rulerformat=%l/%S%[ +%x%]
+
 " ------------------------------------------------------------------------------
 
 " :mark mark /full/directory/path [filename]
