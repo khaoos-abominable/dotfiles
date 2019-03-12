@@ -134,6 +134,9 @@ set cpoptions-=f
 " format for ruler: <file_number>/<total_visible_files_number> + <number_of_filter_out_files>
 set rulerformat=%l/%S%[ +%x%]
 
+" do not show ../ element of a directory
+set dotdirs=rootparent
+
 " ------------------------------------------------------------------------------
 
 " :mark mark /full/directory/path [filename]
