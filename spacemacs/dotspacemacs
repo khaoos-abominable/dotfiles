@@ -34,7 +34,8 @@ values."
      auto-completion
      emacs-lisp
      helm
-     org
+     ;; On the job computer there are problems with installing the packages gnuplot and org-pomodoro (due to windows? proxy? forcepoint?)
+     (org :packages (not gnuplot org-pomodoro))
      multiple-cursors
      shell
      shell-scripts
@@ -50,7 +51,7 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(gnuplot org-pomodoro)
+   dotspacemacs-excluded-packages '()
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
