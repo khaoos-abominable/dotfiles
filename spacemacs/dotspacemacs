@@ -35,6 +35,7 @@ values."
      emacs-lisp
      helm
      org
+     multiple-cursors
      shell
      shell-scripts
      sql
