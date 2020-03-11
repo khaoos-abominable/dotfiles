@@ -78,7 +78,7 @@ values."
    ;; Constantly I was getting Bad Request for downloading packages. But sometimes it worked though.
    dotspacemacs-elpa-https (if (eq system-type 'windows-nt) nil t)
    ;; Maximum allowed time in seconds to contact an ELPA repository.
-   dotspacemacs-elpa-timeout 5
+   dotspacemacs-elpa-timeout 50
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
@@ -152,7 +152,7 @@ values."
    ;; and TAB or <C-m> and RET.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
-   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-distinguish-gui-tab t
    ;; If non nil `Y' is remapped to `y$' in Evil states. (default nil)
    dotspacemacs-remap-Y-to-y$ nil
    ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
@@ -198,7 +198,7 @@ values."
    dotspacemacs-helm-use-fuzzy 'always
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
-   dotspacemacs-enable-paste-transient-state nil
+   dotspacemacs-enable-paste-transient-state t
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
    dotspacemacs-which-key-delay 0.4
@@ -252,7 +252,14 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers
+   '(:relative t
+     :disabled-for-modes dired-mode
+                         doc-view-mode
+                         markdown-mode
+                         org-mode
+                         pdf-view-mode
+     :size-limit-kb 50)
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -293,33 +300,6 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (setq-default
-    ;; Control line numbers activation.
-    ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
-    ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
-    ;; This variable can also be set to a property list for finer control:
-    ;; (default nil)
-    dotspacemacs-line-numbers
-      '(:relative t
-        :disabled-for-modes dired-mode
-                            doc-view-mode
-                            markdown-mode
-                            org-mode
-                            pdf-view-mode
-                            text-mode
-        :size-limit-kb 50)
-    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
-    ;; several times cycle between the kill ring content. (default nil)
-    dotspacemacs-enable-paste-transient-state t
-    ;; Maximum allowed time in seconds to contact an ELPA repository.
-    dotspacemacs-elpa-timeout 50
-    ;; These variables control whether separate commands are bound in the GUI to
-    ;; the key pairs C-i, TAB and C-m, RET.
-    ;; Setting it to a non-nil value, allows for separate commands under <C-i>
-    ;; and TAB or <C-m> and RET.
-    ;; In the terminal, these pairs are generally indistinguishable, so this only
-    ;; works in the GUI. (default nil)
-    dotspacemacs-distinguish-gui-tab t)
 
   ;; enable spell-checking via aspell
   (when (eq system-type 'windows-nt)
