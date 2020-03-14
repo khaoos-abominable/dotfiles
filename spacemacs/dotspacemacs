@@ -411,16 +411,16 @@ you should place your code here."
     '(progn
       (setq-default evilmi-sql-match-tags
           '(
-            ("begin" "exceptions" "end;")
-            ("if" ("elsif" "else") "end if;")
-            ("loop" ("continue;?" "exit;?") ("end loop;"))
-            ("case" "when" ("end case;" "end"))
+            ("begin" "exceptions" "end")
+            ("if" ("elsif" "else") "end if")
+            ("loop" ("continue" "exit") ("end loop"))
+            ("case" "when" ("end case" "end"))
           )
       )
       (setq-default evilmi-sql-extract-keyword-howtos
         '(
-          ("^[ \t]*\\([a-zA-Z]+ [a-zA-Z]+;?\\)" 1)
-          ("^[ \t]*\\([a-zA-Z]+;?\\)" 1)
+          ("^[ \t]*\\([a-zA-Z]+ [a-zA-Z]+\\)" 1)
+          ("^[ \t]*\\([a-zA-Z]+\\)" 1)
         )
       )
     )
