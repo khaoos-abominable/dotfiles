@@ -334,6 +334,9 @@ you should place your code here."
   ;; enable evil-mc globally
   (global-evil-mc-mode 1)
 
+  ;; enable evil-matchit globally
+  (global-evil-matchit-mode 1)
+
   ;; settings for sql-mode
   (add-hook 'sql-mode-hook
     (lambda ()
@@ -351,7 +354,6 @@ you should place your code here."
   (spacemacs/set-leader-keys-for-major-mode 'sql-mode "cc" 'sql-connect)
 
   ;; enable khaoos-sqlup-mode for use
-  ;; (load "private/local/khaoos-sqlup-mode/khaoos-sqlup-mode-autoloads.el")
   (load "khaoos-sqlup-mode-autoloads")
 
   ;; settings for auto-completion
@@ -390,7 +392,7 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "M-i") 'khaoos-insert-one-char)
   (define-key evil-normal-state-map (kbd "M-a") 'khaoos-append-one-char)
 
-  ;; do not auto-indent on paste is the sql mode
+  ;; do not auto-indent on paste in the sql mode
   (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
 
   ;; workaround for a bug when paste commands don't respect universal argument
@@ -402,7 +404,27 @@ you should place your code here."
         (quote ("~/Documents/notes.org"))
         (quote ("~/dwh_projects/notes.org"))
     )
-   )
+  )
+
+  ;; redifine the rules for matching tags in the sql-mode (need some adjustments)
+  (eval-after-load 'evil-matchit-sql
+    '(progn
+      (setq-default evilmi-sql-match-tags
+          '(
+            ("begin" "exceptions" "end;")
+            ("if" ("elsif" "else") "end if;")
+            ("loop" ("continue;?" "exit;?") ("end loop;"))
+            ("case" "when" ("end case;" "end"))
+          )
+      )
+      (setq-default evilmi-sql-extract-keyword-howtos
+        '(
+          ("^[ \t]*\\([a-zA-Z]+ [a-zA-Z]+;?\\)" 1)
+          ("^[ \t]*\\([a-zA-Z]+;?\\)" 1)
+        )
+      )
+    )
+  )
 )
 
 (defun khaoos-toggle-fill-column (colnum &rest auto-fill-on)
