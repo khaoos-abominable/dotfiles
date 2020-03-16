@@ -74,9 +74,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   ;; khaoos: there were problems installing packages on my job computer with https enabled.
-   ;; Constantly I was getting Bad Request for downloading packages. But sometimes it worked though.
-   dotspacemacs-elpa-https (if (eq system-type 'windows-nt) nil t)
+   dotspacemacs-elpa-https t
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 50
    ;; If non nil then spacemacs will check for updates at startup
@@ -663,7 +661,7 @@ paste command don't respect universal argument which should prohibit auto-indent
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (org-pomodoro alert log4e gntp gnuplot org-category-capture org-present org-mime org-download htmlize org-plus-contrib org-bullets xterm-color ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org sqlplus sql-indent spaceline shell-pop restart-emacs request rainbow-delimiters powershell popwin persp-mode pcre2el paradox open-junk-file neotree multi-term move-text macrostep lorem-ipsum linum-relative link-hint insert-shebang indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio git-gutter-fringe git-gutter-fringe+ fuzzy flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diminish diff-hl define-word company-statistics company-shell column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (emoji-cheat-sheet-plus company-emoji org-pomodoro alert log4e gntp gnuplot org-category-capture org-present org-mime org-download htmlize org-plus-contrib org-bullets xterm-color ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org sqlplus sql-indent spaceline shell-pop restart-emacs request rainbow-delimiters powershell popwin persp-mode pcre2el paradox open-junk-file neotree multi-term move-text macrostep lorem-ipsum linum-relative link-hint insert-shebang indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio git-gutter-fringe git-gutter-fringe+ fuzzy flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diminish diff-hl define-word company-statistics company-shell column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
