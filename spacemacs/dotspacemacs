@@ -420,12 +420,6 @@ you should place your code here."
       )
     )
   )
-
-  ;; binding is broken in stable spacemacs. key is bound to non-interactive comman org-set-tags
-  (with-eval-after-load 'org
-    ;; Replace org-set-tags with org-set-tags-command in keybinding
-    (spacemacs/set-leader-keys-for-major-mode 'org-mode ":" 'org-set-tags-command)
-  )
 )
 
 (defun khaoos-toggle-fill-column (colnum &rest auto-fill-on)
