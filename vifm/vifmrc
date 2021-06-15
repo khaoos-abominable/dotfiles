@@ -525,11 +525,11 @@ nnoremap E :view<cr>
 " Various customizations
 
 " Use ag (the silver searcher) instead of grep
-if has('win')
-    set grepprg="ag --nocolor --nogroup %i %a %s"
-else
-    set grepprg="ag --nogroup %i %a %s"
-endif
+"if has('win')
+"    set grepprg="ag --nocolor --nogroup %i %a %s"
+"else
+"    set grepprg="ag --nogroup %i %a %s"
+"endif
 
 " Add additional place to look for executables
 "
