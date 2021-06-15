@@ -45,7 +45,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(sqlplus (khaoos-sqlup-mode :location local) evil-mc)
+   dotspacemacs-additional-packages '((khaoos-sqlup-mode :location local) evil-mc)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -395,12 +395,9 @@ you should place your code here."
   ;; do not auto-indent on paste in the sql mode
   (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
 
-  ;; workaround for a bug when paste commands don't respect universal argument
-  (khaoos-autoindent-on-paste-workaround)
-
-  ;; org-agenda files' list differs on the home and work machines
+  ;; org-agenda files' list differ on the home and work machines
   (setq-default org-agenda-files
-    (if (equal system-name "khaoos-desktop")
+    (if (equal system-name "khaoos-home")
         (quote ("~/Documents/notes.org"))
         (quote ("~/dwh_projects/notes.org"))
     )
@@ -424,6 +421,12 @@ you should place your code here."
         )
       )
     )
+  )
+
+  ;; binding is broken in stable spacemacs. key is bound to non-interactive comman org-set-tags
+  (with-eval-after-load 'org
+    ;; Replace org-set-tags with org-set-tags-command in keybinding
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode ":" 'org-set-tags-command)
   )
 )
 
@@ -634,28 +637,6 @@ which at the moment could be a method of a family of quail input methods"
   (evil-define-avy-motion khaoos-avy-goto-word-or-subword-1 exclusive)
 )
 
-(defun khaoos-autoindent-on-paste-workaround ()
-  "bugfix by @chlodapp taken from https://github.com/syl20bnr/spacemacs/issues/4219
-paste command don't respect universal argument which should prohibit auto-indentation"
-  (spacemacs|advise-commands
-  "indent" (yank yank-pop evil-paste-before evil-paste-after) around
-  "If current mode is not one of spacemacs-indent-sensitive-modes
-  indent yanked text (with universal arg don't indent)."
-  (let ((prefix (ad-get-arg 0))) ;khaoos+
-    (ad-set-arg 0 (unless (equal '(4) prefix) prefix)) ;khaoos+
-    (evil-start-undo-step)
-    ad-do-it
-    (if (and (not (equal '(4) prefix)) ;khaoos* (if (and (not (equal '(4) (ad-get-arg 0)))
-            (not (member major-mode spacemacs-indent-sensitive-modes))
-            (or (derived-mode-p 'prog-mode)
-                (member major-mode spacemacs-indent-sensitive-modes)))
-        (let ((transient-mark-mode nil)
-              (save-undo buffer-undo-list))
-          (spacemacs/yank-advised-indent-function (region-beginning)
-                                                  (region-end))))
-    (evil-end-undo-step)
-    (ad-set-arg 0 prefix))) ; khaoos+
-)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -663,10 +644,32 @@ paste command don't respect universal argument which should prohibit auto-indent
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (org-pomodoro alert log4e gntp gnuplot org-category-capture org-present org-mime org-download htmlize org-plus-contrib org-bullets xterm-color ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org sqlplus sql-indent spaceline shell-pop restart-emacs request rainbow-delimiters powershell popwin persp-mode pcre2el paradox open-junk-file neotree multi-term move-text macrostep lorem-ipsum linum-relative link-hint insert-shebang indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio git-gutter-fringe git-gutter-fringe+ fuzzy flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diminish diff-hl define-word company-statistics company-shell column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (git-gutter anzu avy iedit smartparens evil transient yasnippet company helm helm-core projectile hydra lv dash org-pomodoro alert log4e gntp gnuplot org-category-capture org-present org-mime org-download htmlize org-plus-contrib org-bullets xterm-color ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org sqlplus sql-indent spaceline shell-pop restart-emacs request rainbow-delimiters powershell popwin persp-mode pcre2el paradox open-junk-file neotree multi-term move-text macrostep lorem-ipsum linum-relative link-hint insert-shebang indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio git-gutter-fringe git-gutter-fringe+ fuzzy flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diminish diff-hl define-word company-statistics company-shell column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol nil)
+ '(org-agenda-files nil)
+ '(package-selected-packages
+   (quote
+    (git-gutter anzu avy iedit smartparens evil transient yasnippet company helm helm-core projectile hydra lv dash org-pomodoro alert log4e gntp gnuplot org-category-capture org-present org-mime org-download htmlize org-plus-contrib org-bullets xterm-color ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org sqlplus sql-indent spaceline shell-pop restart-emacs request rainbow-delimiters powershell popwin persp-mode pcre2el paradox open-junk-file neotree multi-term move-text macrostep lorem-ipsum linum-relative link-hint insert-shebang indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio git-gutter-fringe git-gutter-fringe+ fuzzy flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diminish diff-hl define-word company-statistics company-shell column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
