@@ -200,7 +200,7 @@ command! reload :write | restart
 " program.
 
 " Pdf
-filextype *.pdf zathura %c %i &, apvlv %c, xpdf %c
+filextype *.pdf xdg-open
 filetype *.pdf start
 fileviewer *.pdf pdftotext -nopgbrk %c -
 
