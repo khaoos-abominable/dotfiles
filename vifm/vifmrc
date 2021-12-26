@@ -59,7 +59,12 @@ set norunexec
 
 " List of color schemes to try (picks the first one supported by the terminal)
 
-colorscheme juef-zenburn Default-256 Default
+" zenburn is broken under windows
+if has('win')
+  colorscheme dmilith-user Default-256 Default
+else
+  colorscheme juef-zenburn Default-256 Default
+endif
 
 " Format for displaying time in file list. For example:
 " TIME_STAMP_FORMAT=%m/%d-%H:%M
