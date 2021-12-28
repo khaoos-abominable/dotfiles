@@ -456,10 +456,12 @@ nnoremap gb :file &<cr>l
 
 " Interaction with system clipboard
 if has('win')
-    " Yank current directory path to Windows clipboard with forward slashes
-    nnoremap yp :!echo %"d:gs!\!/! %i | clip<cr>
-    " Yank path to current file to Windows clipboard with forward slashes
-    nnoremap yf :!echo %"c:gs!\!/! %i | clip<cr>
+    " Yank current directory path to Windows clipboard
+    nnoremap yp :!echo %"d %i | clip<cr>
+    " Yank path to current file to Windows clipboard
+    nnoremap yf :!echo "%d\%c" %i | clip<cr>
+    " Yank current filename without path to Windows clipboard
+    nnoremap yn :!echo %c %i | clip<cr>
 elseif executable('xclip')
     " Yank current directory path into the clipboard
     nnoremap yd :!echo %d | xclip %i<cr>
