@@ -457,9 +457,9 @@ nnoremap gb :file &<cr>l
 " Interaction with system clipboard
 if has('win')
     " Yank current directory path to Windows clipboard
-    nnoremap yp :!echo %d %i | clip<cr>
+    nnoremap yp :!echo %"d %i | clip<cr>
     " Yank path to current file to Windows clipboard
-    nnoremap yf :!echo %c:p %i | clip<cr>
+    nnoremap yf :!echo %"c:p %i | clip<cr>
     " Yank current filename without path to Windows clipboard
     nnoremap yn :!echo %c %i | clip<cr>
 elseif executable('xclip')
