@@ -437,7 +437,11 @@ filter! {*.lo,*.o,*.d,*.class,*.pyc,*.pyo,.*~}
 " Mappings
 
 " Start shell in current directory
-nnoremap s :shell<cr>
+if has('win')
+  nnoremap s :!bash<cr>
+else
+  nnoremap s :shell<cr>
+endif
 
 " Display sorting dialog
 nnoremap S :sort<cr>
