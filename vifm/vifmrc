@@ -437,7 +437,14 @@ filter! {*.lo,*.o,*.d,*.class,*.pyc,*.pyo,.*~}
 " Mappings
 
 " Start shell in current directory
-nnoremap s :shell<cr>
+if has('win')
+  " start bash on windows instead of default shell
+  " setting variable shell or $SHELL to git bash has
+  " some undesirable effects: difficult to figth with them
+  nnoremap s :!bash<cr>
+else
+  nnoremap s :shell<cr>
+endif
 
 " Display sorting dialog
 nnoremap S :sort<cr>
