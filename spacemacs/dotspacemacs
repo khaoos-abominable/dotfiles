@@ -540,7 +540,7 @@ which at the moment could be a method of a family of quail input methods"
 (advice-add 'evil-read-key :filter-return 'khaoos-evil-read-key-respect-input-method)
 
 (defun khaoos-run-evil-command-respect-input-method (evil-command)
-  "Runs interactively evil command evil-command which now respects the current input method"
+  "Runs interactively the evil command evil-command which now respects the current input method"
   ;; if we are in the mode which prohibits input method we do a trick
   (if (and evil-input-method (not current-input-method))
       (evil-without-input-method-hooks
