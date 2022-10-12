@@ -590,8 +590,15 @@ before packages are loaded."
   )
 
   ;; set fill column for some modes
-  (add-hook 'sql-mode-hook (lambda() (khaoos-toggle-fill-column 120)))
-  (add-hook 'text-mode-hook (lambda() (khaoos-toggle-fill-column 120 t)))
+  (setq-default fill-column 100)
+  (add-hook 'emacs-lisp-mode-hook (lambda() (khaoos-toggle-fill-column 80)))
+  (add-hook 'python-mode-hook (lambda() (khaoos-toggle-fill-column)))
+  (add-hook 'sql-mode-hook (lambda() (khaoos-toggle-fill-column)))
+  (add-hook 'text-mode-hook (lambda() (khaoos-toggle-fill-column)))
+
+  ;; set global toggles
+  (spacemacs/toggle-indent-guide-globally-on)
+  (spacemacs/toggle-global-whitespace-cleanup)
 
   ;; settings for evil-escape
   (setq-default
@@ -615,7 +622,6 @@ before packages are loaded."
   (spacemacs/set-leader-keys "jw" 'evil-khaoos-avy-goto-word-or-subword-1)
 
   ;; settings for sql-mode
-
   ;; file associations
   (add-to-list 'auto-mode-alist '("\\.spc\\'" . sql-mode))
   (add-to-list 'auto-mode-alist '("\\.bdy\\'" . sql-mode))
@@ -671,8 +677,8 @@ before packages are loaded."
   )
 )
 
-(defun khaoos-toggle-fill-column (colnum &rest auto-fill-on)
-  (set-fill-column colnum)
+(defun khaoos-toggle-fill-column (&optional colnum auto-fill-on)
+  (when colnum (set-fill-column colnum))
   (spacemacs/toggle-fill-column-indicator-on)
   (when auto-fill-on (spacemacs/toggle-auto-fill-mode-on)))
 
