@@ -585,7 +585,7 @@ before packages are loaded."
 
   ;; settings for auto-completion
   (setq-default
-    ;; keyboard combination to select item from auto-completion list contactedm
+    ;; keyboard combination to select item from auto-completion list
     auto-completion-complete-with-key-sequence "jk"
   )
 
@@ -606,7 +606,8 @@ before packages are loaded."
    evil-escape-unordered-key-sequence t
    khaoos-evil-escape-key-sequence-im (kbd "ао"))
 
-  ;; Keyboard combination to add missing functionality to repeat the f,F,t,T commands in the opposite way
+  ;; Keyboard combination to add missing functionality to repeat the f,F,t,T
+  ;; commands in the opposite way
   (define-key evil-normal-state-map (kbd "C-;") 'evil-repeat-find-char-reverse)
   ;; Keyboard combination to delete charcters in the insert mode
   (define-key evil-insert-state-map (kbd "C-h") 'backward-delete-char-untabify)
