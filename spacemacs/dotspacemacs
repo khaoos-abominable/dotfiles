@@ -51,7 +51,8 @@ This function should only modify configuration layer settings."
             shell-default-height 30
             shell-default-position 'bottom)
      shell-scripts
-     sql
+     (sql :variables
+          sql-auto-indent nil)
      ;; spell-checking
      syntax-checking
      ;; (version-control :variables version-control-diff-tool 'diff-hl)
@@ -635,7 +636,7 @@ before packages are loaded."
   (add-to-list 'auto-mode-alist '("\\.bdy\\'" . sql-mode))
   (add-to-list 'auto-mode-alist '("\\.fnc\\'" . sql-mode))
   (add-to-list 'auto-mode-alist '("\\.prc\\'" . sql-mode))
-
+  ;;
   (add-hook 'sql-mode-hook
             (lambda ()
               (progn
@@ -644,38 +645,35 @@ before packages are loaded."
                 ;; highlight oracle keywords by default
                 ;; (sql-highlight-oracle-keywords)
                 ;; enable auto-completion
-                (auto-complete-mode 1))))
-
+                (auto-complete-mode 1)
+                (turn-on-evil-matchit-mode)
+                )))
   ;; key-binding for sending the whole line in the sql buffer
   (spacemacs/set-leader-keys-for-major-mode 'sql-mode "sl" 'sql-send-line-and-next)
   ;; key-binding for start new connection
   ;; (spacemacs/set-leader-keys-for-major-mode 'sql-mode "cn" 'khaoos-sql-oracle-start)
   (spacemacs/set-leader-keys-for-major-mode 'sql-mode "cc" 'sql-connect)
-
-  ;; do not auto-indent on paste in the sql mode
-  ;; (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
-
+  ;; do not auto-indent in the sql mode
+  (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
   ;; redefine the rules for matching tags in the sql-mode (need some adjustments)
-  ;; (eval-after-load 'evil-matchit-sql
-  ;;   '(progn
-  ;;      (setq-default evilmi-sql-match-tags
-  ;;                    '(
-  ;;                      ("begin" "exceptions" "end")
-  ;;                      ("if" ("elsif" "else") "end if")
-  ;;                      ("loop" ("continue" "exit") ("end loop"))
-  ;;                      ("case" "when" ("end case" "end"))
-  ;;                      )
-  ;;                    )
-  ;;      (setq-default evilmi-sql-extract-keyword-howtos
-  ;;                    '(
-  ;;                      ("^[ \t]*\\([a-zA-Z]+ [a-zA-Z]+\\)" 1)
-  ;;                      ("^[ \t]*\\([a-zA-Z]+\\)" 1)
-  ;;                      )
-  ;;                    )
-  ;;      )
-  ;;   )
+  (eval-after-load 'evil-matchit-sql
+    '(progn
+       (setq-default evilmi-sql-match-tags
+                     '(
+                        ("begin" "exceptions" "end")
+                        ("if" ("elsif" "else") "end if")
+                        ("loop" ("continue" "exit") ("end loop"))
+                        ("case" "when" ("end case" "end"))
+                      ))
+       (setq-default evilmi-sql-extract-keyword-howtos
+                     '(
+                        ("^[ \t]*\\([a-zA-Z]+ [a-zA-Z]+\\)" 1)
+                        ("^[ \t]*\\([a-zA-Z]+\\)" 1)
+                      ))
+    )
+  )
 
-  ;; setting for org-mode
+  ;; settings for org-mode
   ;; org-agenda files' list differ on the home and work machines
   (setq-default org-agenda-files
     (if (equal system-name "khaoos-home")
