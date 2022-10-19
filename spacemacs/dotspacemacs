@@ -681,6 +681,13 @@ before packages are loaded."
         (quote ("~/dwh/notes.org"))
     )
   )
+
+  ;; hack that fixes workspace switching on emacs >=27
+  ;; see https://github.com/syl20bnr/spacemacs/issues/13677
+  (with-eval-after-load 'evil-maps
+    (when (featurep 'tab-bar)
+      (define-key evil-normal-state-map "gt" nil)
+      (define-key evil-normal-state-map "gT" nil)))
 )
 
 (defun khaoos-toggle-fill-column (&optional colnum auto-fill-on)
