@@ -590,12 +590,16 @@ before packages are loaded."
     auto-completion-complete-with-key-sequence "jk"
   )
 
-  ;; set fill column for some modes
+  ;; set fill column on/off for some modes
   (setq-default fill-column 100)
   (add-hook 'emacs-lisp-mode-hook (lambda() (khaoos-toggle-fill-column 80)))
+  (add-hook 'org-mode-hook (lambda() (spacemacs/toggle-fill-column-indicator-off)))
   (add-hook 'python-mode-hook (lambda() (khaoos-toggle-fill-column)))
   (add-hook 'sql-mode-hook (lambda() (khaoos-toggle-fill-column)))
   (add-hook 'text-mode-hook (lambda() (khaoos-toggle-fill-column)))
+
+  ;; set truncate lines on/off for some modes
+  (add-hook 'org-mode-hook (lambda() (spacemacs/toggle-truncate-lines-off)))
 
   ;; set global toggles
   (spacemacs/toggle-indent-guide-globally-on)
