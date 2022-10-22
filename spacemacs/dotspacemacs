@@ -67,7 +67,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(python-mls)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -633,6 +633,9 @@ before packages are loaded."
               evilnc-comment-text-object 'evilnc-inner-commenter)
   (define-key evil-outer-text-objects-map
               evilnc-comment-text-object 'evilnc-outer-commenter)
+
+  ;; settings for python-mode
+  (use-package python-mls :config (python-mls-setup))
 
   ;; settings for sql-mode
   ;; file associations
