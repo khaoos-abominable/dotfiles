@@ -113,13 +113,6 @@ set confirm-=delete
 " Substitute with g option by default
 set gdefault
 
-" On windows use git find program instead of windows one
-" gfind.exe is obtained by copying find.exe in git/usr/bin directory
-" Commented out as not using msys2 anymore
-if has('win')
-   set findprg="gfind %s %a -print , -type d \( ! -readable -o ! -executable \) -prune" 
-endif
-
 " treat "_" (code 95), "." (46), "#" (35) as word boundary symbols
 set wordchars="1-8,14-31,33,34,36-45,47-94,96-255" 
 
