@@ -639,6 +639,10 @@ before packages are loaded."
   ;; settings for python-mode
   (use-package python-mls :config (python-mls-setup))
 
+  ;; prevent adding newline at the end of file on certain modes
+  (add-hook 'jinja2-mode-hook (lambda()
+                                (setq-local require-final-newline nil)))
+
   ;; settings for sql-mode
   ;; file associations
   (add-to-list 'auto-mode-alist '("\\.spc\\'" . sql-mode))
