@@ -51,6 +51,8 @@ This function should only modify configuration layer settings."
             shell-default-height 30
             shell-default-position 'bottom)
      shell-scripts
+     (spacemacs-layouts :variables
+                        persp-autokill-buffer-on-remove 'kill-weak)
      (sql :variables
           sql-auto-indent nil)
      ;; spell-checking
