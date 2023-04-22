@@ -637,7 +637,7 @@ before packages are loaded."
               evilnc-comment-text-object 'evilnc-outer-commenter)
 
   ;; settings for python-mode
-  (use-package python-mls :config (python-mls-setup))
+  (use-package python-mls :config (python-mls-python-setup))
 
   ;; prevent adding newline at the end of file on certain modes
   (add-hook 'jinja2-mode-hook (lambda()
