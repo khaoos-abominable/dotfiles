@@ -708,39 +708,14 @@ before packages are loaded."
   (spacemacs/toggle-fill-column-indicator-on)
   (when auto-fill-on (spacemacs/toggle-auto-fill-mode-on)))
 
-;; Keep it until it is obvious that it is not needed
-;; (defun khaoos-sql-oracle-start ()
-;;   (interactive)
-;;   (sql-set-product 'oracle)
-;;   (sql-product-interactive koracle))
 
 (defvar khaoos-input-method-last-raw-key nil
   "The last key pressed with an input method switched on but ignoring the conversion of the input method.")
-
-;; (defun khaoos-capture-input-mode-raw-key (key)
-;;   "The function captures an input key ignoring the current input method.
-;; Doesn't work for complex input methods that use event loops."
-;;   (setq khaoos-input-method-last-raw-key (char-to-string key)))
-
-;; (defun khaoos-activate-input-method (input-method)
-;;   "Defines an advise for a function which implements the current input method."
-;;   ;; We don't bother ourselves to remove the advise when we deactivate the input method.
-;;   ;; The chances are high that we'll reuse it.
-;;   (if (and current-input-method input-method-function)
-;;       (advice-add input-method-function :before #'khaoos-capture-input-mode-raw-key)
-;;     ))
-
-;; (defcustom khaoos-evil-escape-ignore-input-method nil
-;;   "If non-nil then the key sequence can be entered ignoring the current input method if any."
-;;   :type 'boolean
-;;   :group 'evil-escape)
-
 
 (defcustom khaoos-evil-escape-key-sequence-im "ав"
   "Two keys sequence to escape from insert state."
   :type 'key-sequence
   :group 'evil-escape)
-
 
 (defun khaoos-evil-escape--evil-escape-seq-im ()
   "Return the key sequence with respect to the input method"
@@ -773,6 +748,7 @@ before packages are loaded."
     "Always returns the result of this-command-key as key sequence"
     (key-description (this-command-keys-vector)))
 
+;; based on evil-escape ver 3.16
 (defun khaoos-evil-escape-p ()
   "Return non-nil if evil-escape can run."
   (and evil-escape-key-sequence
@@ -802,6 +778,7 @@ before packages are loaded."
 
 (advice-add 'evil-escape-p :override #'khaoos-evil-escape-p)
 
+;; based on evil-escape ver 3.16
 (defun khaoos-evil-escape-pre-command-hook ()
   "evil-escape pre-command hook."
   (with-demoted-errors "evil-escape: Error %S"
