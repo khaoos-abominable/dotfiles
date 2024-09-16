@@ -626,9 +626,9 @@ before packages are loaded."
   (define-key evil-motion-state-map (kbd "t") 'khaoos-evil-find-char-to)
   (define-key evil-motion-state-map (kbd "F") 'khaoos-evil-find-char-backward)
   (define-key evil-motion-state-map (kbd "T") 'khaoos-evil-find-char-to-backward)
-  (spacemacs/set-leader-keys "jj" 'evil-khaoos-avy-goto-char)
-  (spacemacs/set-leader-keys "jJ" 'evil-khaoos-avy-goto-char-2)
-  (spacemacs/set-leader-keys "jw" 'evil-khaoos-avy-goto-word-or-subword-1)
+  (spacemacs/set-leader-keys "jj" 'khaoos-avy-goto-char)
+  (spacemacs/set-leader-keys "jJ" 'khaoos-avy-goto-char-2)
+  (spacemacs/set-leader-keys "jw" 'khaoos-avy-goto-word-or-subword-1)
 
   ;; define comment text object
   (setq evilnc-comment-text-object "c")
