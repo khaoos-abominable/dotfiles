@@ -27,7 +27,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-ask-for-lazy-installation t
 
    ;; List of additional paths where to look for configuration layers.
-   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
+   ;; Paths must have a trailing slash (i.e. "~/.mycontribs/")
    dotspacemacs-configuration-layer-path '()
 
    ;; List of configuration layers to load.
@@ -39,9 +39,11 @@ This function should only modify configuration layer settings."
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
+     ;; better-defaults
      emacs-lisp
      git
      helm
+     json
      ;; lsp
      markdown
      multiple-cursors
@@ -57,8 +59,10 @@ This function should only modify configuration layer settings."
           sql-auto-indent nil)
      ;; spell-checking
      syntax-checking
-     ;; (version-control :variables version-control-diff-tool 'diff-hl)
-     treemacs)
+     ;; version-control
+     treemacs
+     yaml
+     )
 
 
    ;; List of additional packages that will be installed without being wrapped
@@ -69,8 +73,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(python-mls jinja2-mode json-mode
-                                      yaml-mode)
+   dotspacemacs-additional-packages '(python-mls jinja2-mode)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -117,14 +120,6 @@ It should only modify the values of Spacemacs settings."
    ;;   ./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp
    ;; (default (format "spacemacs-%s.pdmp" emacs-version))
    dotspacemacs-emacs-dumper-dump-file (format "spacemacs-%s.pdmp" emacs-version)
-
-   ;; If non-nil ELPA repositories are contacted via HTTPS whenever it's
-   ;; possible. Set it to nil if you have no way to use HTTPS in your
-   ;; environment, otherwise it is strongly recommended to let it set to t.
-   ;; This variable has no effect if Emacs is launched with the parameter
-   ;; `--insecure' which forces the value of this variable to nil.
-   ;; (default t)
-   dotspacemacs-elpa-https t
 
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
@@ -264,7 +259,9 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
 
-   ;; Default font or prioritized list of fonts. The `:size' can be specified as
+   ;; Default font or prioritized list of fonts. This setting has no effect when
+   ;; running Emacs in terminal. The font set here will be used for default and
+   ;; fixed-pitch faces. The `:size' can be specified as
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Source Code Pro"
@@ -302,7 +299,7 @@ It should only modify the values of Spacemacs settings."
    ;; and TAB or `C-m' and `RET'.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
-   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-distinguish-gui-tab t
 
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
@@ -345,6 +342,10 @@ It should only modify the values of Spacemacs settings."
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
+   ;; It is also possible to use a posframe with the following cons cell
+   ;; `(posframe . position)' where position can be one of `center',
+   ;; `top-center', `bottom-center', `top-left-corner', `top-right-corner',
+   ;; `top-right-corner', `bottom-left-corner' or `bottom-right-corner'
    ;; (default 'bottom)
    dotspacemacs-which-key-position 'bottom
 
@@ -354,6 +355,11 @@ It should only modify the values of Spacemacs settings."
    ;; displays the buffer in a same-purpose window even if the buffer can be
    ;; displayed in the current window. (default nil)
    dotspacemacs-switch-to-buffer-prefers-purpose nil
+
+   ;; Whether side windows (such as those created by treemacs or neotree)
+   ;; are kept or minimized by `spacemacs/toggle-maximize-window' (SPC w m).
+   ;; (default t)
+   dotspacemacs-maximize-window-keep-side-windows t
 
    ;; If non-nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
@@ -370,12 +376,12 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
-   ;; (default nil) (Emacs 24.4+ only)
+   ;; (default t) (Emacs 24.4+ only)
    dotspacemacs-maximized-at-startup t
 
    ;; If non-nil the frame is undecorated when Emacs starts up. Combine this
-   ;; variable with `dotspacemacs-maximized-at-startup' in OSX to obtain
-   ;; borderless fullscreen. (default nil)
+   ;; variable with `dotspacemacs-maximized-at-startup' to obtain fullscreen
+   ;; without external boxes. Also disables the internal border. (default nil)
    dotspacemacs-undecorated-at-startup nil
 
    ;; A value from the range (0..100), in increasing opacity, which describes
@@ -387,6 +393,11 @@ It should only modify the values of Spacemacs settings."
    ;; the transparency level of a frame when it's inactive or deselected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-inactive-transparency 90
+
+   ;; A value from the range (0..100), in increasing opacity, which describes the
+   ;; transparency level of a frame background when it's active or selected. Transparency
+   ;; can be toggled through `toggle-background-transparency'. (default 90)
+   dotspacemacs-background-transparency 90
 
    ;; If non-nil show the titles of transient states. (default t)
    dotspacemacs-show-transient-state-title t
@@ -428,9 +439,9 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil)
    dotspacemacs-line-numbers
    '(:relative t
-     :disabled-for-modes dired-mode
-                         org-mode
-     :size-limit-kb 1000)
+               :disabled-for-modes dired-mode
+               org-mode
+               :size-limit-kb 1000)
 
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
@@ -448,7 +459,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc...
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
-   dotspacemacs-smart-closing-parenthesis nil
+   dotspacemacs-smart-closing-parenthesis t
 
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
@@ -457,7 +468,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
-   dotspacemacs-enable-server t
+   dotspacemacs-enable-server nil
 
    ;; Set the emacs server socket location.
    ;; If nil, uses whatever the Emacs default is, otherwise a directory path
@@ -474,6 +485,13 @@ It should only modify the values of Spacemacs settings."
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
    ;; (default '("rg" "ag" "pt" "ack" "grep"))
    dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+
+   ;; The backend used for undo/redo functionality. Possible values are
+   ;; `undo-fu', `undo-redo' and `undo-tree' see also `evil-undo-system'.
+   ;; Note that saved undo history does not get transferred when changing
+   ;; your undo system. The default is currently `undo-fu' as `undo-tree'
+   ;; is not maintained anymore and `undo-redo' is very basic."
+   dotspacemacs-undo-system 'undo-fu
 
    ;; Format specification for setting the frame title.
    ;; %a - the `abbreviated-file-name', or `buffer-name'
@@ -510,8 +528,11 @@ It should only modify the values of Spacemacs settings."
    ;; to aggressively delete empty line and long sequences of whitespace,
    ;; `trailing' to delete only the whitespace at end of lines, `changed' to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
+   ;; The variable `global-spacemacs-whitespace-cleanup-modes' controls
+   ;; which major modes have whitespace cleanup enabled or disabled
+   ;; by default.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'changed
 
    ;; If non-nil activate `clean-aindent-mode' which tries to correct
    ;; virtual indentation of simple modes. This can interfere with mode specific
@@ -521,7 +542,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-use-clean-aindent-mode t
 
    ;; Accept SPC as y for prompts if non-nil. (default nil)
-   dotspacemacs-use-SPC-as-y nil
+   dotspacemacs-use-SPC-as-y t
 
    ;; If non-nil shift your number row to match the entered keyboard layout
    ;; (only in insert state). Currently supported keyboard layouts are:
@@ -553,7 +574,7 @@ default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
   (spacemacs/load-spacemacs-env)
-)
+  )
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
@@ -563,7 +584,7 @@ It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq custom-file (file-truename (concat (dotspacemacs/location) ".custom")))
   (load custom-file)
-)
+  )
 
 
 (defun dotspacemacs/user-load ()
@@ -571,7 +592,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump."
-)
+  )
 
 
 (defun dotspacemacs/user-config ()
@@ -580,320 +601,186 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  ;; set alternative input method as russian
   (setq-default default-input-method "russian-computer")
 
-  ;; set preferrable coding systems: next one is preferrable then previous one
+  ;; coding systems
+  ;; the next coding system is preferrable then previous one
   (prefer-coding-system 'windows-1251)
-  (prefer-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8-unix)
 
-  ;; settings for auto-completion
-  (setq-default
-    ;; keyboard combination to select item from auto-completion list
-    auto-completion-complete-with-key-sequence "jk"
-  )
-
-  ;; set fill column on/off for some modes
-  (setq-default fill-column 100)
-  (add-hook 'emacs-lisp-mode-hook (lambda() (khaoos-toggle-fill-column 80)))
-  (add-hook 'org-mode-hook (lambda() (spacemacs/toggle-fill-column-indicator-off)))
-  (add-hook 'python-mode-hook (lambda() (khaoos-toggle-fill-column)))
-  (add-hook 'sql-mode-hook (lambda() (khaoos-toggle-fill-column)))
-  (add-hook 'text-mode-hook (lambda() (khaoos-toggle-fill-column)))
-
-  ;; set truncate lines on/off for some modes
-  (add-hook 'org-mode-hook (lambda() (spacemacs/toggle-truncate-lines-off)))
-
-  ;; set global toggles
+  ;; global toggles and settings
+  (spacemacs/toggle-fill-column-indicator-globally-on)
   (spacemacs/toggle-indent-guide-globally-on)
-  (spacemacs/toggle-global-whitespace-cleanup)
+  (setq-default fill-column 100)
 
-  ;; settings for evil-escape
+  ;; auto-completion
+  (setq-default
+   ;; keyboard combination to select item from auto-completion list
+   auto-completion-complete-with-key-sequence "jk")
+
+  ;; evil-escape
   (setq-default
    evil-escape-key-sequence "fj"
    evil-escape-unordered-key-sequence t
-   khaoos-evil-escape-key-sequence-im (kbd "ао"))
+   evil-escape-case-insensitive-key-sequence t)
+  ;; my extensions to make evil escape work with the russian input method
+  ;; `khaoos-evil-escaping' is set to t only when evil-escaping is ongoing and
+  ;; the input method is on
+  (defvar khaoos-evil-escaping nil)
+  ;; keeps translations of evil escape key sequence for input methods so we
+  ;; don't need to recalculate them all the time.
+  (defvar khaoos-evil-escape-keyseq-im-cache ())
 
-  ;; Keyboard combination to add missing functionality to repeat the f,F,t,T
-  ;; commands in the opposite way
+  ;; my extensions to make evil commands respect the russian input method
+  ;; `khaoos-evil-command-respect-im' is set to t when the command we want
+  ;; to make respect the input method is triggered.
+  (defvar khaoos-evil-command-respect-im nil)
+  ;; the list of commands we want to make respect the input method.
+  (setq khaoos-evil-commands-to-respect-im
+        '(evil-find-char
+          evil-find-char-to
+          evil-find-char-backward
+          evil-find-char-to-backward
+          evil-replace
+          evil-avy-goto-char
+          evil-avy-goto-char-2
+          evil-avy-goto-char-timer
+          buffer-evil-avy-goto-char-timer
+          evil-avy-goto-word-or-subword-1
+          ))
+
+  ;; Define prefixes for custom keybindings
+  (spacemacs/declare-prefix "ot" "toggles")
+
+  ;; Global keybindings
+  ;; Add missing functionality to repeat the f,F,t,T commands in the opposite way
   (define-key evil-normal-state-map (kbd "C-;") 'evil-repeat-find-char-reverse)
-  ;; Keyboard combination to delete charcters in the insert mode
-  (define-key evil-insert-state-map (kbd "C-h") 'backward-delete-char-untabify)
-
-  ;; Rebind the commands that don't respect input method
-  (define-key evil-normal-state-map (kbd "r") 'khaoos-evil-replace)
-  (define-key evil-motion-state-map (kbd "f") 'khaoos-evil-find-char)
-  (define-key evil-motion-state-map (kbd "t") 'khaoos-evil-find-char-to)
-  (define-key evil-motion-state-map (kbd "F") 'khaoos-evil-find-char-backward)
-  (define-key evil-motion-state-map (kbd "T") 'khaoos-evil-find-char-to-backward)
-  (spacemacs/set-leader-keys "jj" 'khaoos-avy-goto-char)
-  (spacemacs/set-leader-keys "jJ" 'khaoos-avy-goto-char-2)
-  (spacemacs/set-leader-keys "jw" 'khaoos-avy-goto-word-or-subword-1)
+  ;; Delete charcters in the insert mode
+  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+  ;; Toggle the underscore as a word constitutient
+  (spacemacs/set-leader-keys "ot-" 'khaoos-toggle-underscore-as-word-constitutient)
 
   ;; define comment text object
+  (require 'evil-nerd-commenter-operator)
   (setq evilnc-comment-text-object "c")
   (define-key evil-inner-text-objects-map
               evilnc-comment-text-object 'evilnc-inner-commenter)
   (define-key evil-outer-text-objects-map
               evilnc-comment-text-object 'evilnc-outer-commenter)
 
-  ;; settings for python-mode
+  ;; org-mode
+  (add-to-list 'global-display-fill-column-indicator-modes '(not org-mode))
+  (add-hook 'org-mode-hook #'spacemacs/toggle-truncate-lines-off)
+
+  ;; python-mode
   (use-package python-mls :config (python-mls-python-setup))
 
-  ;; prevent adding newline at the end of file on certain modes
-  (add-hook 'jinja2-mode-hook (lambda()
-                                (setq-local require-final-newline nil)))
+  ;; emacs-lisp-mode
+  (add-hook 'emacs-lisp-mode-hook (lambda() (set-fill-column 80)))
 
-  ;; settings for sql-mode
-  ;; file associations
-  (add-to-list 'auto-mode-alist '("\\.spc\\'" . sql-mode))
-  (add-to-list 'auto-mode-alist '("\\.bdy\\'" . sql-mode))
-  (add-to-list 'auto-mode-alist '("\\.fnc\\'" . sql-mode))
-  (add-to-list 'auto-mode-alist '("\\.prc\\'" . sql-mode))
-  ;;
+  ;; jinja2-modje
+  (add-hook 'jinja2-mode-hook (lambda() (setq-local require-final-newline nil)))
+
+  ;; sql-mode
   (add-hook 'sql-mode-hook
             (lambda ()
               (progn
-                ;; make underscore symbol act like a word costituent in sql-mode
-                ;; (modify-syntax-entry ?_ "w" sql-mode-syntax-table)
-                ;; highlight oracle keywords by default
-                ;; (sql-highlight-oracle-keywords)
-                ;; enable auto-completion
-                (auto-complete-mode 1)
-                (turn-on-evil-matchit-mode)
-                )))
+                (turn-on-evil-matchit-mode))))
   ;; key-binding for sending the whole line in the sql buffer
   (spacemacs/set-leader-keys-for-major-mode 'sql-mode "sl" 'sql-send-line-and-next)
-  ;; key-binding for start new connection
-  ;; (spacemacs/set-leader-keys-for-major-mode 'sql-mode "cn" 'khaoos-sql-oracle-start)
   (spacemacs/set-leader-keys-for-major-mode 'sql-mode "cc" 'sql-connect)
   ;; do not auto-indent in the sql mode
-  (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
-  ;; redefine the rules for matching tags in the sql-mode (need some adjustments)
-  (eval-after-load 'evil-matchit-sql
-    '(progn
-       (setq-default evilmi-sql-match-tags
-                     '(
-                        ("begin" "exceptions" "end")
-                        ("if" ("elsif" "else") "end if")
-                        ("loop" ("continue" "exit") ("end loop"))
-                        ("case" "when" ("end case" "end"))
-                      ))
-       (setq-default evilmi-sql-extract-keyword-howtos
-                     '(
-                        ("^[ \t]*\\([a-zA-Z]+ [a-zA-Z]+\\)" 1)
-                        ("^[ \t]*\\([a-zA-Z]+\\)" 1)
-                      ))
-    )
+  ;; (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
   )
 
-  ;; settings for org-mode
-  ;; org-agenda files' list differ on the home and work machines
-  (setq-default org-agenda-files
-    (if (equal system-name "khaoos-home")
-        (quote ("~/Documents/notes.org"))
-        (quote ("~/dwh/notes.org"))
-    )
-  )
 
-  ;; hack that fixes workspace switching on emacs >=27
-  ;; see https://github.com/syl20bnr/spacemacs/issues/13677
-  (with-eval-after-load 'evil-maps
-    (when (featurep 'tab-bar)
-      (define-key evil-normal-state-map "gt" nil)
-      (define-key evil-normal-state-map "gT" nil)))
-)
-
-(defun khaoos-toggle-fill-column (&optional colnum auto-fill-on)
-  (when colnum (set-fill-column colnum))
-  (spacemacs/toggle-fill-column-indicator-on)
-  (when auto-fill-on (spacemacs/toggle-auto-fill-mode-on)))
-
-
-(defvar khaoos-input-method-last-raw-key nil
-  "The last key pressed with an input method switched on but ignoring the conversion of the input method.")
-
-(defcustom khaoos-evil-escape-key-sequence-im "ав"
-  "Two keys sequence to escape from insert state."
-  :type 'key-sequence
-  :group 'evil-escape)
-
-(defun khaoos-evil-escape--evil-escape-seq-im ()
-  "Return the key sequence with respect to the input method"
-  (let*
-      ((key-seq
-        (cond ((not current-input-method) evil-escape-key-sequence)
-              ((not khaoos-evil-escape-key-sequence-im) evil-escape-key-sequence)
-              (1 khaoos-evil-escape-key-sequence-im))))
-      key-seq))
-
-(defun khaoos-evil-escape--first-key ()
-  "Return the first key string in the key sequence."
-  ;; (let* ((first-key (elt evil-escape-key-sequence 0)) ;; khaoos-
-  (let* ((first-key (elt (khaoos-evil-escape--evil-escape-seq-im) 0)) ;; khaoos+
-         (fkeystr (char-to-string first-key)))
-    fkeystr))
-
-;; (advice-add 'evil-escape--first-key :override #'khaoos-evil-escape--first-key)
-
-(defun khaoos-evil-escape--second-key ()
-  "Return the second key string in the key sequence."
-  ;; (let* ((sec-key (elt evil-escape-key-sequence 1)) ;; khaoos-
-  (let* ((sec-key (elt (khaoos-evil-escape--evil-escape-seq-im) 1)) ;; khaoos+
-         (fkeystr (char-to-string sec-key)))
-    fkeystr))
-
-;; (advice-add 'evil-escape--second-key :override #'khaoos-evil-escape--second-key)
-
-(defun khaoos-evil-escape--this-command-as-key ()
-    "Always returns the result of this-command-key as key sequence"
-    (key-description (this-command-keys-vector)))
-
-;; based on evil-escape ver 3.16
-(defun khaoos-evil-escape-p ()
-  "Return non-nil if evil-escape can run."
-  (and evil-escape-key-sequence
-       (not evil-escape-inhibit)
-       (or (window-minibuffer-p)
-           (bound-and-true-p isearch-mode)
-           (memq major-mode '(ibuffer-mode
-                              image-mode))
-           (evil-escape--is-magit-buffer)
-           (and (fboundp 'helm-alive-p) (helm-alive-p))
-           (or (not (eq 'normal evil-state))
-               (not (eq 'evil-force-normal-state
-                        (lookup-key evil-normal-state-map [escape])))))
-       (not (memq major-mode evil-escape-excluded-major-modes))
-       (not (memq evil-state evil-escape-excluded-states))
-       (or (not evil-escape-enable-only-for-major-modes)
-           (memq major-mode evil-escape-enable-only-for-major-modes))
-       ;; (or (equal (this-command-keys) (evil-escape--first-key)) ;; khaoos-
-       (or (equal (khaoos-evil-escape--this-command-as-key) (khaoos-evil-escape--first-key)) ;; khaoos +
-           (and evil-escape-unordered-key-sequence
-                ;; (equal (this-command-keys) (evil-escape--second-key)))) ;; khaoos-
-                (equal (khaoos-evil-escape--this-command-as-key) (khaoos-evil-escape--second-key)))) ;; khaoos+
-       (not (cl-reduce (lambda (x y) (or x y))
-                       (mapcar 'funcall evil-escape-inhibit-functions)
-                       :initial-value nil))
-       ))
-
-(advice-add 'evil-escape-p :override #'khaoos-evil-escape-p)
-
-;; based on evil-escape ver 3.16
-(defun khaoos-evil-escape-pre-command-hook ()
-  "evil-escape pre-command hook."
-  (with-demoted-errors "evil-escape: Error %S"
-      (when (evil-escape-p)
-        (let* ((modified (buffer-modified-p))
-               (inserted (evil-escape--insert))
-               ;; (fkey (elt evil-escape-key-sequence 0)) ;; khaoos-
-               ;; (skey (elt evil-escape-key-sequence 1)) ;; khaoos-
-               ;; (evt (read-event nil nil evil-escape-delay))) ;; khaoos-
-               (fkey (elt (khaoos-evil-escape--evil-escape-seq-im) 0)) ;; khaoos+
-               (skey (elt (khaoos-evil-escape--evil-escape-seq-im) 1)) ;; khaoos+
-               (evt (read-event nil t evil-escape-delay))) ;; khaoos+ respect the input method
-          (when inserted (evil-escape--delete))
-          (set-buffer-modified-p modified)
-          (cond
-           ((and (characterp evt)
-                 ;; (or (and (equal (this-command-keys) (evil-escape--first-key)) ;; khaoos-
-                 (or (and (equal (khaoos-evil-escape--this-command-as-key) (khaoos-evil-escape--first-key)) ;; khaoos+
-                          (char-equal evt skey))
-                     (and evil-escape-unordered-key-sequence
-                          ;; (equal (this-command-keys) (evil-escape--second-key)) ;; khaoos-
-                          (equal (khaoos-evil-escape--this-command-as-key) (khaoos-evil-escape--second-key)) ;; khaoos+
-                          (char-equal evt fkey))))
-            (evil-repeat-stop)
-            (let ((esc-fun (evil-escape-func)))
-              (when esc-fun
-                (setq this-command esc-fun)
-                (setq this-original-command esc-fun))))
-           ((null evt))
-           (t (setq unread-command-events
-                    (append unread-command-events (list evt)))))))))
-
-(advice-add 'evil-escape-pre-command-hook :override #'khaoos-evil-escape-pre-command-hook)
-
-(defun khaoos-evil-read-key-respect-input-method (evil-read-key-result)
-  "Gets the result of evil-read-key function and converts it according to the current input method
-which at the present moment could be only a method of a family of the quail input methods"
-  (if (and (characterp evil-read-key-result)
-           current-input-method
-           (equal input-method-function 'quail-input-method))
-      (let* ((translated-key-list (quail-lookup-key (char-to-string evil-read-key-result)))
-             (translated-key (if (equal (length translated-key-list) 1)
-                                 (car translated-key-list)
-                               evil-read-key-result)))
-        translated-key)
-    evil-read-key-result))
-
-(advice-add 'evil-read-key :filter-return 'khaoos-evil-read-key-respect-input-method)
-
-(defun khaoos-run-evil-command-respect-input-method (evil-command)
-  "Runs interactively the evil command evil-command which now respects the current input method"
-  ;; if we are in the mode which prohibits input method we do a trick
-  (if (and evil-input-method (not current-input-method))
+(defun khaoos-call-interactively (orig-fun command &rest arg)
+  ;; Make call-interactively respect the input method for evil commands that
+  ;; are in the `khaoos-evil-commands-to-respect-im' list
+  (if (and evil-input-method (not current-input-method)
+           (memq command khaoos-evil-commands-to-respect-im))
       (evil-without-input-method-hooks
-       (activate-input-method evil-input-method)
-       (condition-case err
-           (call-interactively evil-command)
-         (error
-          (inactivate-input-method)
-          (signal (car err) (cdr err))))
-       (inactivate-input-method))
-    (call-interactively evil-command)))
+        (let ((khaoos-evil-command-respect-im t) result)
+          (activate-input-method evil-input-method)
+          (condition-case err
+              (setq result (apply orig-fun (cons command arg)))
+            (error
+             (deactivate-input-method)
+             (signal (car err) (cdr err))))
+          (deactivate-input-method)
+          result))
+    (apply orig-fun (cons command arg))))
 
-(with-eval-after-load "evil-macros"
-  (evil-define-operator khaoos-evil-replace ()
-    "Wrapper of evil-replace to make it respect input method"
-    (interactive)
-    (khaoos-run-evil-command-respect-input-method 'evil-replace))
+(advice-add 'call-interactively :around #'khaoos-call-interactively)
 
-  (evil-define-motion khaoos-evil-find-char ()
-    "Wrapper of evil-find-char to make it respect input method"
-    :type inclusive
-    (interactive)
-    (khaoos-run-evil-command-respect-input-method 'evil-find-char))
+(defun khaoos-evil-read-key (orig-fun &rest arg)
+  ;; replacement for `evil-read-key' for evil commands that should respect
+  ;; the input method
+  (if (and khaoos-evil-command-respect-im current-input-method)
+      (read-char nil t)
+    (apply orig-fun arg)))
 
-  (evil-define-motion khaoos-evil-find-char-to ()
-    "Wrapper of evil-find-char-to to make it respect input method"
-    :type inclusive
-    (interactive)
-    (khaoos-run-evil-command-respect-input-method 'evil-find-char-to))
+(advice-add 'evil-read-key :around 'khaoos-evil-read-key)
 
-  (evil-define-motion khaoos-evil-find-char-backward ()
-    "Wrapper of evil-find-char-backward to make it respect input method"
-    :type exclusive
-    (interactive)
-    (khaoos-run-evil-command-respect-input-method 'evil-find-char-backward))
+(defun khaoos-evil-escape-this-command-keys (orig-fun &rest arg)
+  ;; a variant of `this-command-keys' to make evil-escape respect the input
+  ;; method
+  (if (and khaoos-evil-escaping current-input-method)
+      (key-description (this-command-keys-vector))
+    (apply orig-fun arg)))
 
-  (evil-define-motion khaoos-evil-find-char-to-backward ()
-    (interactive)
-    (khaoos-run-evil-command-respect-input-method 'evil-find-char-to-backward))
-)
+(advice-add 'this-command-keys :around #'khaoos-evil-escape-this-command-keys)
 
-(with-eval-after-load "evil-integration"
-  (defun khaoos-avy-goto-char ()
-    "Make `evil-avy-go-to-char' respect the current input method"
-    (interactive)
-    (khaoos-run-evil-command-respect-input-method 'avy-goto-char))
+(defun khaoos-evil-escape-read-event-filter-args (args)
+  ;; filter for `read-event' args to make evil-escape respect the input method
+  (when (and khaoos-evil-escaping current-input-method)
+    (cond ((>= (length args) 2) (setcar (cdr args) t))
+          ((= (length args) 1) (setcdr args '(t)))))
+  args)
 
-  (evil-define-avy-motion khaoos-avy-goto-char inclusive)
+(advice-add 'read-event :filter-args #'khaoos-evil-escape-read-event-filter-args)
 
-  (defun khaoos-avy-goto-char-2 ()
-    "Make `evil-avy-go-to-char-2' respect the current input method"
-    (interactive)
-    (khaoos-run-evil-command-respect-input-method 'avy-goto-char-2))
+(defun khaoos-evil-escape-key-sequence ()
+  ;; get `evil-escape-key-sequence' for the current input method
+  (if (and current-input-method
+           (equal input-method-function `quail-input-method))
+      (let* ((akey (cons evil-escape-key-sequence (quail-name)))
+             (cached-result (assoc akey khaoos-evil-escape-keyseq-im-cache)))
+        (if cached-result
+            (cdr cached-result)
+          (let ((keyseq-im ""))
+            (dotimes (i (length evil-escape-key-sequence))
+              (setq keyseq-im
+                    (concat keyseq-im
+                            (char-to-string
+                             (car (quail-lookup-key
+                                   (substring evil-escape-key-sequence i (1+ i))))))))
+            (push (cons akey keyseq-im) khaoos-evil-escape-keyseq-im-cache)
+            keyseq-im)))
+    evil-escape-key-sequence))
 
-  (evil-define-avy-motion khaoos-avy-goto-char-2 inclusive)
+(defun khaoos-evil-escape-pre-command-hook (orig-fun &rest arg)
+  ;; a variant of `evil-ecsape-pre-command-hook' to make it respect the input
+  ;; method
+  (let* ((keyseq (khaoos-evil-escape-key-sequence))
+         (evil-escape-key-sequence keyseq)
+         (khaoos-evil-escaping t))
+    (apply orig-fun arg)))
 
-  (defun khaoos-avy-goto-word-or-subword-1 ()
-    "Make `evil-avy-go-to-char' respect the current input method"
-    (interactive)
-    (khaoos-run-evil-command-respect-input-method 'avy-goto-word-or-subword-1))
+(advice-add 'evil-escape-pre-command-hook :around
+            #'khaoos-evil-escape-pre-command-hook)
 
-  (evil-define-avy-motion khaoos-avy-goto-word-or-subword-1 exclusive)
-)
+(defun khaoos-toggle-underscore-as-word-constitutient()
+  "Toggles on and off the underscore symbol as a word constitutient.
+
+If it is a word constitutient then it becomes a symbol constitutient, otherwise
+it becomes a word constitutient."
+  (interactive)
+  (if (string= (string (char-syntax ?_)) "w")
+      (modify-syntax-entry ?_ "_")
+    (modify-syntax-entry ?_ "w")
+    ))
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
