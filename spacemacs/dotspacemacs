@@ -659,7 +659,7 @@ before packages are loaded."
   ;; Delete charcters in the insert mode
   (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
   ;; Toggle the underscore as a word constitutient
-  (spacemacs/set-leader-keys "ot-" 'khaoos-toggle-underscore-as-word-constitutient)
+  (spacemacs/set-leader-keys "ot-" #'khaoos-toggle-underscore-as-word-constitutient)
 
   ;; define comment text object
   (require 'evil-nerd-commenter-operator)
