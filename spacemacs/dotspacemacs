@@ -611,6 +611,7 @@ before packages are loaded."
   ;; global toggles and settings
   (spacemacs/toggle-fill-column-indicator-globally-on)
   (spacemacs/toggle-indent-guide-globally-on)
+  (global-evil-matchit-mode 1)
   (setq-default fill-column 100)
 
   ;; auto-completion
@@ -682,10 +683,6 @@ before packages are loaded."
   (add-hook 'jinja2-mode-hook (lambda() (setq-local require-final-newline nil)))
 
   ;; sql-mode
-  (add-hook 'sql-mode-hook
-            (lambda ()
-              (progn
-                (turn-on-evil-matchit-mode))))
   ;; key-binding for sending the whole line in the sql buffer
   (spacemacs/set-leader-keys-for-major-mode 'sql-mode "sl" 'sql-send-line-and-next)
   (spacemacs/set-leader-keys-for-major-mode 'sql-mode "cc" 'sql-connect)
