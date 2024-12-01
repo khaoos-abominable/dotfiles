@@ -649,6 +649,10 @@ before packages are loaded."
           evil-avy-goto-word-or-subword-1
           ))
 
+  ;; Fix evil unimpaired bindings (shadowed by evil-maps)
+  (define-key evil-normal-state-map (kbd "] f") 'evil-unimpaired/next-file)
+  (define-key evil-normal-state-map (kbd "[ f") 'evil-unimpaired/previous-file)
+
   ;; Define prefixes for custom keybindings
   (spacemacs/declare-prefix "ot" "toggles")
 
