@@ -689,8 +689,8 @@ before packages are loaded."
   ;; key-binding for sending the whole line in the sql buffer
   (spacemacs/set-leader-keys-for-major-mode 'sql-mode "sl" 'sql-send-line-and-next)
   (spacemacs/set-leader-keys-for-major-mode 'sql-mode "cc" 'sql-connect)
-  ;; do not auto-indent in the sql mode
-  ;; (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
+  ;; do not auto-indent in the sql mode (precisely do not indent when paste)
+  (add-to-list 'spacemacs-indent-sensitive-modes 'sql-mode)
   )
 
 
