@@ -684,6 +684,7 @@ before packages are loaded."
 
   ;; jinja2-modje
   (add-hook 'jinja2-mode-hook (lambda() (setq-local require-final-newline nil)))
+  (add-to-list 'auto-mode-alist '("\\.jinja\\'" . jinja2-mode))
 
   ;; sql-mode
   ;; key-binding for sending the whole line in the sql buffer
