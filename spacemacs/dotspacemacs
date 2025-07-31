@@ -682,9 +682,11 @@ before packages are loaded."
   ;; emacs-lisp-mode
   (add-hook 'emacs-lisp-mode-hook (lambda() (set-fill-column 80)))
 
-  ;; jinja2-modje
+  ;; jinja2-mode
   (add-hook 'jinja2-mode-hook (lambda() (setq-local require-final-newline nil)))
   (add-to-list 'auto-mode-alist '("\\.jinja\\'" . jinja2-mode))
+  (with-eval-after-load 'jinja2-mode
+    (modify-syntax-entry ?.  "." jinja2-mode-syntax-table))
 
   ;; sql-mode
   ;; key-binding for sending the whole line in the sql buffer
