@@ -1,39 +1,15 @@
-set nocompatible
-
-filetype plugin indent on
-
 set fileencodings=utf8,cp1251
 
-set history=1000
-
-" Backups and Undo
-set nobackup
-set noswapfile
-set nowritebackup
 set undofile
-set undodir=~/.vim/undodir
 
-" Indents
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
-set backspace=indent,eol,start
-
-" Visuals
-syntax on
-set ruler
-set number
-set cursorline
-set showmode
-set showcmd
-set laststatus=2
 
 " Search
-set incsearch
 set hlsearch
 set ignorecase
 set smartcase
 
 " Terminal
-set mouse=a
 set clipboard=unnamedplus
 set termguicolors
 set lazyredraw
@@ -42,7 +18,6 @@ set ttyfast
 
 " Mappings
 imap fj <Esc>
-nnoremap <esc><esc> :noh<return><esc>
 nnoremap <C-s> :w<CR>
 " Russian mapping
 set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
@@ -55,14 +30,13 @@ imap ао fj
 "   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 call plug#begin('~/.config/vim/plugged')
 
-" Plug 'preservim/nerdtree'
-Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-fugitive'
-Plug 'sheerun/vim-polyglot'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'justinmk/vim-sneak'
 Plug 'jiangmiao/auto-pairs'
+Plug 'justinmk/vim-sneak'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
 
 call plug#end()
 
