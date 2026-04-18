@@ -1,0 +1,87 @@
+set nocompatible
+
+filetype plugin indent on
+
+set fileencodings=utf8,cp1251
+
+set history=1000
+
+" Backups and Undo
+set nobackup
+set noswapfile
+set nowritebackup
+set undofile
+set undodir=~/.vim/undodir
+
+" Indents
+set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
+set backspace=indent,eol,start
+
+" Visuals
+syntax on
+set ruler
+set number
+set cursorline
+set showmode
+set showcmd
+set laststatus=2
+
+" Search
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+" Terminal
+set mouse=a
+set clipboard=unnamedplus
+set termguicolors
+set lazyredraw
+set ttyfast
+
+
+" Mappings
+imap fj <Esc>
+nnoremap <esc><esc> :noh<return><esc>
+nnoremap <C-s> :w<CR>
+" Russian mapping
+set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+imap ао fj
+
+
+" Plugins
+" To install vim-plug:
+"   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+"   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+call plug#begin('~/.config/vim/plugged')
+
+" Plug 'preservim/nerdtree'
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-fugitive'
+Plug 'sheerun/vim-polyglot'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'justinmk/vim-sneak'
+Plug 'jiangmiao/auto-pairs'
+Plug 'ntpeters/vim-better-whitespace'
+
+call plug#end()
+
+
+" Win32 settings
+" Cursor in terminal for Win
+  " https://vim.fandom.com/wiki/Configuring_the_cursor
+  " 1 or 0 -> blinking block
+  " 2 solid block
+  " 3 -> blinking underscore
+  " 4 solid underscore
+  " Recent versions of xterm (282 or above) also support
+  " 5 -> blinking vertical bar
+  " 6 -> solid vertical bar
+if has('win32unix')
+  if &term =~ '^xterm'
+    " normal mode
+    let &t_EI .= "\<Esc>[2 q"
+    " insert mode
+    let &t_SI .= "\<Esc>[6 q"
+  endif
+endif
