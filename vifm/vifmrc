@@ -1,4 +1,4 @@
-" vim: filetype=vifm :
+" vim: filetype=vim :
 "
 " Sample configuration file for vifm (last updated: 11 May, 2025)
 "
@@ -191,16 +191,16 @@ command! reload :write | restart full
 " commands for diff files and directories in various ways
 " Next command picked from https://wiki.vifm.info/index.php?title=Comparing_files
 " compares two files or directories and says whether they are equal or not
-if has('win')
-  command! internalcmp compare-cmd %a %S
-  command! cmp : if expand('%%"c') == expand('%%"f')
-             \ |     echo expand('Comparing %%"c and %%"C:t ...')
-             \ |     internalcmp %"c %"C
-             \ | else
-             \ |     echo expand('Comparing files: %%"f ...')
-             \ |     internalcmp %"f
-             \ | endif
+command! internalcmp compare-cmd %a %S
+command! cmp : if expand('%%"c') == expand('%%"f')
+           \ |     echo expand('Comparing %%"c and %%"C:t ...')
+           \ |     internalcmp %"c %"C
+           \ | else
+           \ |     echo expand('Comparing files: %%"f ...')
+           \ |     internalcmp %"f
+           \ | endif
 
+if has('win')
   " compares two files or directories with winmerge
   command! internalwdiff winmergeu %a &
   command! wdiff : if expand('%%"c') == expand('%%"f')
@@ -221,6 +221,7 @@ if has('win')
                \ |     internalkmerge %"f
                \ | endif
 endif
+
 " ------------------------------------------------------------------------------
 " File handlers and previewers
 " ------------------------------------------------------------------------------
@@ -279,7 +280,7 @@ endif
 " program.  There is also %FOREGROUND, which is useful for entering passwords.
 
 " Pdf
-filextype {*.pdf},<application/pdf> ocular %c, zathura %c %i, apvlv %c, xpdf %c
+filextype {*.pdf},<application/pdf> okular %c, zathura %c %i, apvlv %c, xpdf %c
 fileviewer {*.pdf},<application/pdf> pdftotext -nopgbrk %c -
 
 " PostScript
@@ -291,8 +292,8 @@ filextype {*.ps,*.eps,*.ps.gz},<application/postscript>
 
 " Djvu
 filextype {*.djvu},<image/vnd.djvu>
-        \ {View in ocular}
-        \ ocular %f
+        \ {View in okular}
+        \ okular %f
         \ {View in zathura}
         \ zathura %f,
         \ {View in apvlv}
@@ -496,11 +497,6 @@ filetype *.tudu tudu -f %c
 " Qt projects
 filextype *.pro qtcreator %f &
 
-" Directories
-filextype */
-        \ {View in thunar}
-        \ Thunar %f &,
-
 " Syntax highlighting in preview
 "
 " Explicitly set highlight type for some extensions
@@ -574,7 +570,6 @@ if has('win')
     nnoremap yf :!echo %"c:p:gs!\!/! %i | clip<cr>
     " Yank current filename without path to Windows clipboard
     nnoremap yn :!echo %c %i | clip<cr>
-elseif executable('xclip')
 elseif $WAYLAND_DISPLAY != ''
     if executable('wl-copy')
         " Yank current directory path into primary and selection clipboards
@@ -640,7 +635,9 @@ nnoremap ,w :set wrap!<cr>
 nnoremap <f3> :!less %f<cr>
 nnoremap <f4> :edit<cr>
 nnoremap <f5> :copy<cr>
+nnoremap <c-f5> :copy!<cr>
 nnoremap <f6> :move<cr>
+nnoremap <c-f6> :move!<cr>
 nnoremap <f7> :mkdir<space>
 nnoremap <f8> :delete<cr>
 
@@ -656,7 +653,7 @@ nnoremap <a-o> :sync %c<cr>
 " Panel configuration examples
 " ------------------------------------------------------------------------------
 
-" Customize view columns 
+" Customize view columns
 set viewcolumns=-70%{name}.,-8%{ext},14%{mtime},8%{size}
 
 " Show vertical border
