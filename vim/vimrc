@@ -10,7 +10,9 @@ set ignorecase
 set smartcase
 
 " Terminal
-set clipboard=unnamedplus
+if has('unix')
+    set clipboard=unnamedplus
+endif
 set termguicolors
 set lazyredraw
 set ttyfast
