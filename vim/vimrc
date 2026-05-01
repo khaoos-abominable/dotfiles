@@ -12,6 +12,8 @@ set smartcase
 " Terminal
 if has('unix')
     set clipboard=unnamedplus
+else
+    set clipboard=unnamed
 endif
 set termguicolors
 set lazyredraw
