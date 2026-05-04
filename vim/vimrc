@@ -10,10 +10,10 @@ set ignorecase
 set smartcase
 
 " Terminal
-if has('unix')
-    set clipboard=unnamedplus
-else
+if has('win32unix')
     set clipboard=unnamed
+else
+    set clipboard=unnamedplus
 endif
 set termguicolors
 set lazyredraw
