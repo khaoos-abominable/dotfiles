@@ -682,3 +682,11 @@ set grepprg="rg --vimgrep %a %I %i %s"
 " ------------------------------------------------------------------------------
 
 " https://github.com/cirala/vifm_devicons
+"
+
+" ------------------------------------------------------------------------------
+" Local settings if present
+" ------------------------------------------------------------------------------
+if filereadable($VIFM.'/vifmrc.local')
+    source $VIFM/vifmrc.local
+endif
