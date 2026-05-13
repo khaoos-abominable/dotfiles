@@ -139,6 +139,8 @@
 (map! :nvm "g y" #'evilnc-copy-and-comment-operator)
 ;; repeat complex command
 (map! :nv "C-," #'repeat)
+;; avy go to any line
+(map! :nm "g s l" #'evil-avy-goto-line)
 
 ;; evil-escape
 (setq-default
