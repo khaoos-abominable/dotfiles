@@ -225,9 +225,11 @@
 (defun khaoos/call-interactively (orig-fun command &rest arg)
   "Make call-interactively respect the input method for evil commands that
    should respect the input method"
-  (if (and evil-input-method (not current-input-method)
+  (if (and evil-input-method
+           (not current-input-method)
            (memq command khaoos/evil-commands-to-respect-im))
-      (let ((khaoos/evil-command-respect-im t) result)
+      (let ((khaoos/evil-command-respect-im t)
+            result)
         (evil-without-input-method-hooks
           (activate-input-method evil-input-method)
           (unwind-protect
