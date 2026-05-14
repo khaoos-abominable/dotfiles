@@ -222,6 +222,10 @@
         evil-snipe-X
         evil-avy-goto-char-2
         evil-avy-goto-char-timer
+        evilem-motion-find-char
+        evilem-motion-find-char-to
+        evilem-motion-find-char-backward
+        evilem-motion-find-char-to-backward
         ))
 
 (defun khaoos/call-interactively (orig-fun command &rest arg)
