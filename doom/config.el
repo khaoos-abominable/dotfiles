@@ -252,56 +252,53 @@
 (advice-add 'evil-read-key :around 'khaoos/evil-read-key)
 
 
-;;; Make evil escape respect the russian input method
+;;; Make evil-escape respect the input method
 
-;; `khaoos/evil-escaping' is set to t only when evil-escaping is ongoing and
-;; the input method is on
-(defvar khaoos/evil-escaping nil)
-;; keeps translations of evil escape key sequence for input methods so we
-;; don't need to recalculate them all the time.
-(defvar khaoos/evil-escape-keyseq-im-cache ())
+(defvar khaoos/evil-escaping nil
+  "Set to t only when evil-escaping is ongoing and the input method is on")
+(defvar khaoos/evil-escape-keyseq-cache (make-hash-table :test 'equal)
+  "Cache for translated evil-escape key sequences per input method.")
+
+(defun khaoos/evil-escape-translate-keyseq ()
+  "Translate `evil-escape-key-sequence' to current input method."
+  (if (and current-input-method
+           (eq input-method-function 'quail-input-method))
+      (let* ((original evil-escape-key-sequence)
+             (cached (gethash (cons original current-input-method)
+                              khaoos/evil-escape-keyseq-cache)))
+        (or cached
+            (let ((translated (apply #'string
+                                     (cl-loop for ch across original
+                                              collect (or (car (quail-lookup-key (string ch)))
+                                                          ch)))))
+              (puthash (cons original current-input-method) translated
+                       khaoos/evil-escape-keyseq-cache)
+              translated)))
+    evil-escape-key-sequence))
+
+(defun khaoos/evil-escape-pre-command-hook (orig-fun &rest args)
+  "Advice for `evil-escape-pre-command-hook'.
+Temporarily overrides `evil-escape-key-sequence' with translated version."
+  (let ((evil-escape-key-sequence (khaoos/evil-escape-translate-keyseq))
+        (khaoos/evil-escaping t))
+    (apply orig-fun args)))
+
+(advice-add 'evil-escape-pre-command-hook :around #'khaoos/evil-escape-pre-command-hook)
+
+(defun khaoos/evil-escape-read-event-filter (args)
+  "Make `read-event' see raw keys during evil-escape."
+  (when (and khaoos/evil-escaping current-input-method)
+    (if (cdr args)
+        (setcar (cdr args) t)
+      (setcdr args '(t))))
+  args)
+
+(advice-add 'read-event :filter-args #'khaoos/evil-escape-read-event-filter)
 
 (defun khaoos/evil-escape-this-command-keys (orig-fun &rest arg)
-  "A variant of `this-command-keys' to make evil-escape respect the input method"
+  "Advice for `this-command-keys' to make evil-escape respect the input method"
   (if (and khaoos/evil-escaping current-input-method)
       (key-description (this-command-keys-vector))
     (apply orig-fun arg)))
 
 (advice-add 'this-command-keys :around #'khaoos/evil-escape-this-command-keys)
-
-(defun khaoos/evil-escape-read-event-filter-args (args)
-  "Filter for `read-event' args to make evil-escape respect the input method"
-  (when (and khaoos/evil-escaping current-input-method)
-    (cond ((>= (length args) 2) (setcar (cdr args) t))
-          ((= (length args) 1) (setcdr args '(t)))))
-  args)
-
-(advice-add 'read-event :filter-args #'khaoos/evil-escape-read-event-filter-args)
-
-(defun khaoos/evil-escape-key-sequence ()
-  "Get `evil-escape-key-sequence' for the current input method"
-  (if (and current-input-method
-           (equal input-method-function `quail-input-method))
-      (let* ((akey (cons evil-escape-key-sequence (quail-name)))
-             (cached-result (assoc akey khaoos/evil-escape-keyseq-im-cache)))
-        (if cached-result
-            (cdr cached-result)
-          (let ((keyseq-im ""))
-            (dotimes (i (length evil-escape-key-sequence))
-              (setq keyseq-im
-                    (concat keyseq-im
-                            (char-to-string
-                             (car (quail-lookup-key
-                                   (substring evil-escape-key-sequence i (1+ i))))))))
-            (push (cons akey keyseq-im) khaoos/evil-escape-keyseq-im-cache)
-            keyseq-im)))
-    evil-escape-key-sequence))
-
-(defun khaoos/evil-escape-pre-command-hook (orig-fun &rest arg)
-  "A variant of `evil-ecsape-pre-command-hook' to make it respect the input method"
-  (let* ((keyseq (khaoos/evil-escape-key-sequence))
-         (evil-escape-key-sequence keyseq)
-         (khaoos/evil-escaping t))
-    (apply orig-fun arg)))
-
-(advice-add 'evil-escape-pre-command-hook :around #'khaoos/evil-escape-pre-command-hook)
