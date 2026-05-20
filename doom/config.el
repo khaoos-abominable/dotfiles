@@ -163,24 +163,38 @@
 
 
 ;;; session auto-restore
-(defvar khaoos/session-restore-file
-  (expand-file-name ".restore-on-next-start" user-emacs-directory))
+(define-multisession-variable khaoos/restore-on-start nil
+  "Stores the restore flag"
+  :storage 'sqlite)
+
+;;;###autoload
+(defun khaoos/restore-on-start ()
+  (multisession-value khaoos/restore-on-start))
+
+;;;###autoload
+(defun khaoos/toggle-restore-on-start-on ()
+  (setf (multisession-value khaoos/restore-on-start) t))
+
+;;;###autoload
+(defun khaoos/toggle-restore-on-start-off ()
+  (setf (multisession-value khaoos/restore-on-start) nil))
 
 ;;;###autoload
 (defun khaoos/restart-and-restore ()
   "Restart Emacs and restore the current session."
   (interactive)
   (doom/quicksave-session)
-  (with-temp-file khaoos/session-restore-file (insert "restore"))
+  (khaoos/toggle-restore-on-start-on)
   (restart-emacs))
 
 ;;;###autoload
 (defun khaoos/restore()
-  (when (file-exists-p khaoos/session-restore-file)
-    (delete-file khaoos/session-restore-file)
-    (doom/quickload-session t)))
+  (when (khaoos/restore-on-start)
+    (doom/quickload-session t)
+    (khaoos/toggle-restore-on-start-off)))
 
 (add-hook! 'doom-after-init-hook :append #'khaoos/restore)
+
 
 ;;; unimpaired paste
 (defun khaoos/evil-paste-above ()
