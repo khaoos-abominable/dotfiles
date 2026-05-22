@@ -100,6 +100,9 @@
 ;; Implicit /g flag
 (setq evil-ex-substitute-global t)
 
+(use-package! evil-nerd-commenter
+  :commands (evilnc-copy-and-comment-operator))
+
 ;; keybindings
 ;; expand region
 (map! :leader :desc "Expand region" "v" #'er/expand-region)
