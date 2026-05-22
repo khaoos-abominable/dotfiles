@@ -165,7 +165,7 @@
 ;;; session auto-restore
 (define-multisession-variable khaoos/restore-on-start nil
   "Stores the restore flag"
-  :storage 'sqlite)
+  :storage (if (sqlite-available-p) 'sqlite 'files))
 
 ;;;###autoload
 (defun khaoos/restore-on-start ()
