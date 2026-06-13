@@ -77,6 +77,7 @@
 ;;; global settings
 
 (setq-default default-input-method "russian-computer")
+(setq confirm-kill-emacs nil)
 (setq-default which-key-idle-delay 0.4)
 (setq avy-all-windows t)
 
