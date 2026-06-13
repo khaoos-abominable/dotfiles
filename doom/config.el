@@ -171,19 +171,15 @@
   "Stores the restore flag"
   :storage (if (sqlite-available-p) 'sqlite 'files))
 
-;;;###autoload
 (defun khaoos/restore-on-start ()
   (multisession-value khaoos/restore-on-start))
 
-;;;###autoload
 (defun khaoos/toggle-restore-on-start-on ()
   (setf (multisession-value khaoos/restore-on-start) t))
 
-;;;###autoload
 (defun khaoos/toggle-restore-on-start-off ()
   (setf (multisession-value khaoos/restore-on-start) nil))
 
-;;;###autoload
 (defun khaoos/restart-and-restore ()
   "Restart Emacs and restore the current session."
   (interactive)
@@ -191,7 +187,6 @@
   (khaoos/toggle-restore-on-start-on)
   (restart-emacs))
 
-;;;###autoload
 (defun khaoos/restore()
   (when (khaoos/restore-on-start)
     (doom/quickload-session t)
